@@ -23,7 +23,7 @@ export default function NewManagerCard({ setNewManagerButtonActive }) {
             </div>
             <form className={s.fields} onSubmit={(e) => onRegistrate(e)}>
                 <div className={s.photo}>
-                    <img src=".\images\add-image.png" alt="add-image" />
+                    <img src=".\images\add-image.png" alt="add-img" />
                 </div>
                 <div className={s.column}>
                     <p>Имя</p>

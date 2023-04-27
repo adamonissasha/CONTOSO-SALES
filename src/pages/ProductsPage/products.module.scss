@@ -1,4 +1,4 @@
-.managers {
+.products {
     display: flex;
 
     .page {
@@ -31,11 +31,18 @@
             }
         }
 
-        .cards {
+        .tableHeader {
             width: 95%;
+            background-color: #E8E4F4;
             display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
+            height: 40px;
+            margin-bottom: 10px;
+
+            h2 {
+                font-weight: 400;
+                font-size: 100%;
+                margin: 8px 0px;
+            }
         }
     }
 }
