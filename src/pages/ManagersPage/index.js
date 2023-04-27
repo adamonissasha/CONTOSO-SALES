@@ -4,9 +4,16 @@ import Header from '../../components/Header';
 import Menu from '../../components/Menu';
 import ManagerCard from '../../components/ManagerCard';
 import NewManagerCard from '../../components/NewManagerCard';
+import ManagerService from '../../services/ManagerService';
 
 function ManagersPage() {
     const [isNewManagerButtonActive, setNewManagerButtonActive] = useState(false);
+    const [managers, setManagers] = useState([]);
+
+    React.useEffect(() => {
+        ManagerService.getAll()
+            .then(({ data }) => setManagers(data));
+    }, []);
 
     return (
         <div>
@@ -25,10 +32,10 @@ function ManagersPage() {
                         </button>
                     }
                     <div className={s.cards}>
-                        <ManagerCard />
-                        <ManagerCard />
-                        <ManagerCard />
-
+                        {managers
+                            .map((manager) => (
+                                <ManagerCard key={manager.id} manager={manager} />
+                            ))}
                     </div>
                 </div>
             </div>

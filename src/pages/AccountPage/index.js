@@ -4,7 +4,7 @@ import Header from '../../components/Header';
 import Menu from '../../components/Menu';
 import AuthService from '../../services/AuthService';
 
-function Account({ user }) {
+function Account({ currentUser }) {
     const [oldPassword, setOldPassword] = React.useState('');
     const [newPassword, setNewPassword] = React.useState('');
     const [newPassword2, setNewPassword2] = React.useState('');
@@ -12,12 +12,10 @@ function Account({ user }) {
     const onChangePassword = (e) => {
         e.preventDefault();
         if (newPassword === newPassword2) {
-            const id = localStorage.getItem('user').id;
-            const user = { userId: id, oldPassword, newPassword };
+            const user = { userId: currentUser.id, oldPassword, newPassword };
             AuthService.changePassword(user);
         }
     }
-
     return (
         <div>
             <Header />
@@ -25,12 +23,12 @@ function Account({ user }) {
                 <Menu />
                 <div className={s.page}>
                     <div className={s.info}>
-                        <img className={s.photo} src=".\images\photo_2023-03-13_16-07-07.jpg" alt="photo" />
+                        <img className={s.photo} src=".\images\photo_2023-03-13_16-07-07.jpg" alt="userImg" />
                         <div className={s.text}>
-                            <h2>Игнатович Илья</h2>
-                            <h3>@ilych2002</h3>
-                            <h3>+375291234567</h3>
-                            <p>Менеджер отдела продаж</p>
+                            <h2>{currentUser.lastName} {currentUser.firstName}</h2>
+                            <h3>{currentUser.login}</h3>
+                            <h3>{currentUser.phoneNumber}</h3>
+                            <p>{currentUser.role}</p>
                         </div>
                     </div>
                     <div className={s.password}>
@@ -41,19 +39,22 @@ function Account({ user }) {
                                 <input value={oldPassword}
                                     onChange={(obj) => setOldPassword(obj.target.value)}
                                     className={s.inp}
-                                    required />
+                                    required
+                                    type='password' />
                                 <p>Новый пароль</p>
                                 <input value={newPassword}
                                     onChange={(obj) => setNewPassword(obj.target.value)}
                                     className={s.inp}
-                                    required />
+                                    required
+                                    type='password' />
                             </div>
                             <div className={s.column}>
                                 <p>Повторите новый пароль</p>
                                 <input value={newPassword2}
                                     onChange={(obj) => setNewPassword2(obj.target.value)}
                                     className={s.inp}
-                                    required />
+                                    required
+                                    type='password' />
                                 <button className={s.but}>Сменить пароль</button>
                             </div>
                         </form>
