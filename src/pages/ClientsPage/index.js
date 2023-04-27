@@ -5,9 +5,11 @@ import Menu from '../../components/Menu';
 import NewClientCard from '../../components/NewClientCard';
 import ClientCard from '../../components/ClientCard';
 import ClientService from '../../services/ClientService';
+import SendMessageCard from '../../components/SendMesageCard';
 
 export default function ClientsPage() {
     const [isNewClientButtonActive, setNewClientButtonActive] = useState(false);
+    const [isSendMessageButtonActive, setSendMessageButtonActive] = useState(false);
     const [clients, setClients] = useState([]);
 
     React.useEffect(() => {
@@ -32,6 +34,17 @@ export default function ClientsPage() {
                             onClick={() => setNewClientButtonActive(true)}>
                             <img className={s.plus} src="./images/add.png" alt="add" />
                             <h2>Добавить нового клиента</h2>
+                        </button>
+                    }
+                    {isSendMessageButtonActive ?
+                        <SendMessageCard
+                            label="Рассылка предложений клиентам"
+                            setActive={setSendMessageButtonActive} /> :
+                        <button
+                            className={s.sendMessage}
+                            onClick={() => setSendMessageButtonActive(true)}>
+                            <img className={s.send} src="./images/letter.png" alt="send" />
+                            <h2>Рассылка предложений клиентам</h2>
                         </button>
                     }
                     <div className={s.tableHeader}>
