@@ -1,0 +1,25 @@
+.header {
+    width: 100%;
+    background-color: #8E80B5;
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+
+    .label {
+        background-color: #7E71A3;
+        color: white;
+        font-weight: 100;
+        width: 300px;
+        font-size: 34px;
+        padding: 10px;
+        padding-left: 30px;
+    }
+
+    h2 {
+        color: white;
+        font-weight: 100;
+        font-size: 26px;
+        margin: 15px;
+        margin-right: 30px;
+    }
+}

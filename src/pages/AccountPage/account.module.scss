@@ -1,0 +1,92 @@
+.account {
+    display: flex;
+
+    .page {
+        width: 1300px;
+        padding-top: 100px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .info {
+            display: flex;
+            background-color: #F5F3FC;
+            width: 1000px;
+            display: flex;
+            align-items: center;
+
+            .photo {
+                width: 180px;
+                height: 180px;
+                border-radius: 120px;
+                padding: 30px 30px;
+            }
+
+            .text {
+                padding: 30px 0px;
+            }
+
+            h2 {
+                font-weight: 100;
+                font-size: 36px;
+                margin: 0;
+            }
+
+            h3 {
+                font-weight: 100;
+                font-size: 24px;
+                margin: 10px 0px;
+            }
+
+            p {
+                font-weight: 500;
+                font-size: 20px;
+                margin: 0;
+            }
+        }
+
+        .password {
+            margin-top: 30px;
+            background-color: #F5F3FC;
+            width: 1000px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            h2 {
+                font-weight: 100;
+                font-size: 30px;
+            }
+
+            .fields {
+                display: flex;
+                width: 850px;
+                justify-content: space-between;
+                padding-bottom: 30px;
+
+                .column {
+                    display: flex;
+                    flex-direction: column;
+
+                    p {
+                        margin: 0;
+                        font-size: 12px;
+                        padding-left: 10px;
+                    }
+
+                    .inp {
+                        width: 400px;
+                        height: 35px;
+                        margin-bottom: 10px;
+                    }
+
+                    .but {
+                        margin-top: 18px;
+                        height: 35px;
+                        color: rgba(255, 255, 255, 0.8);
+                    }
+                }
+            }
+        }
+    }
+}

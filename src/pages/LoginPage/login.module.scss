@@ -1,15 +1,60 @@
 .content {
-    background-color: #f0ecfa;
+    background-color: #FAF8FF;
     width: 100%;
     height: 753px;
-}
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-.login_area {
-    background-color: white;
-    width: 400px;
-    height: 460px;
-}
+    h1 {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 40px;
+        line-height: 130%;
+        margin: 0;
+        color: #8e7fb4;
+        width: 300px;
+    }
 
-h1 {
-    
+    .login_area {
+        background-color: white;
+        width: 370px;
+        height: 330px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 10px;
+
+        h2 {
+            font-style: normal;
+            font-weight: 100;
+            font-size: 28px;
+            line-height: 130%;
+            color: #4b4b4b;
+        }
+
+        p {
+            font-style: normal;
+            font-weight: 100;
+            font-size: 14px;
+            line-height: 130%;
+            color: #4b4b4b;
+            margin: 0px;
+            padding-left: 10px;
+        }
+
+        .but {
+            margin-top: 15px;
+            width: 130px;
+            height: 35px;
+        }
+
+        .inp {
+            width: 270px;
+            height: 40px;
+            padding: 0px 10px;
+            margin-bottom: 20px;
+        }
+    }
 }
