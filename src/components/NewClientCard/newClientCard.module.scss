@@ -1,0 +1,70 @@
+.card {
+    background-color: #F5F3FC;
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 40px;
+
+    .header {
+        display: flex;
+        align-items: center;
+        width: 100%;
+
+        .label {
+            width: 96%;
+            text-align: center;
+        }
+
+        img {
+            width: 20px;
+            height: 20px;
+            left: 0;
+        }
+    }
+
+    h2 {
+        font-weight: 100;
+        font-size: 20px;
+    }
+
+    form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .fields {
+            display: flex;
+            width: 95%;
+            justify-content: space-between;
+
+            .column {
+                width: 49%;
+                display: flex;
+                flex-direction: column;
+
+                p {
+                    margin: 0;
+                    font-size: 12px;
+                    padding-left: 10px;
+                }
+
+                .inp {
+                    width: 90%;
+                    height: 35px;
+                    margin-bottom: 10px;
+                    padding: 0px 20px;
+                }
+            }
+        }
+
+        .but {
+            height: 35px;
+            width: 30%;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+    }
+}

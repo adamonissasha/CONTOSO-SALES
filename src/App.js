@@ -4,6 +4,7 @@ import LoginPage from './pages/LoginPage';
 import AccountPage from './pages/AccountPage';
 import ManagersPage from './pages/ManagersPage';
 import ProductsPage from './pages/ProductsPage';
+import ClientsPage from './pages/ClientsPage';
 
 function App() {
   const [user, setUser] = React.useState(JSON.parse(localStorage.getItem("user")));
@@ -19,6 +20,7 @@ function App() {
         <Route path="/account" element={<AccountPage currentUser={user} />} />
         <Route path="/managers" element={<ManagersPage />} />
         <Route path="/products" element={<ProductsPage />} />
+        <Route path="/clients" element={<ClientsPage />} />
       </Routes>
     </div>
   );
