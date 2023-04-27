@@ -3,11 +3,7 @@ const url = "http://localhost:8081";
 
 class AuthService {
     login(user) {
-        return axios.post(url + "/login", user);
-    }
-
-    registrate(user) {
-        return axios.post(url + "/admin/registration", user);
+        return axios.post(url + "/users/login", user);
     }
 
     changePassword(user) {

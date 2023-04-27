@@ -2,7 +2,7 @@ import React from 'react';
 import s from './login.module.scss';
 import AuthService from '../../services/AuthService';
 
-function Login() {
+function Login({ setUser }) {
     const [password, setPassword] = React.useState('admin');
     const [login, setLogin] = React.useState('admin');
 
@@ -10,7 +10,10 @@ function Login() {
         e.preventDefault();
         const user = { login, password };
         AuthService.login(user)
-            .then(({ data }) => localStorage.setItem("user", data));
+            .then(({ data }) => {
+                localStorage.setItem("user", JSON.stringify(data));
+                setUser(data);
+            });
     }
 
     return (

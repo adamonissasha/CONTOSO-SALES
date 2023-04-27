@@ -1,5 +1,5 @@
 import s from './newManagerCard.module.scss';
-import AuthService from '../../services/AuthService';
+import ManagerService from '../../services/ManagerService';
 import React from 'react';
 
 export default function NewManagerCard({ setNewManagerButtonActive }) {
@@ -12,7 +12,7 @@ export default function NewManagerCard({ setNewManagerButtonActive }) {
     const onRegistrate = (e) => {
         e.preventDefault();
         const user = { login, password, firstName, lastName, phoneNumber };
-        AuthService.registrate(user);
+        ManagerService.registrate(user);
     }
 
     return (
