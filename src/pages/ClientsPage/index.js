@@ -4,10 +4,16 @@ import Header from '../../components/Header';
 import Menu from '../../components/Menu';
 import NewClientCard from '../../components/NewClientCard';
 import ClientCard from '../../components/ClientCard'
+import ClientService from '../../services/ClientService';
 
 export default function ClientsPage() {
     const [isNewClientButtonActive, setNewClientButtonActive] = useState(false);
-    const [isUpdateClientButtonActive, setUpdateClientButtonActive] = useState(false);
+    const [clients, setClients] = useState([]);
+
+    React.useEffect(() => {
+        ClientService.getAll()
+            .then(({ data }) => setClients(data));
+    }, []);
 
     return (
         <div>
@@ -19,7 +25,8 @@ export default function ClientsPage() {
                         <NewClientCard
                             setActive={setNewClientButtonActive}
                             label="Добавление нового клиента"
-                            buttonName="Добавить" /> :
+                            buttonName="Добавить"
+                            client={{ id: 0, name: "", email: "", phoneNumber: "", address: "" }} /> :
                         <button
                             className={s.addNew}
                             onClick={() => setNewClientButtonActive(true)}>
@@ -35,13 +42,12 @@ export default function ClientsPage() {
                         <h2 style={{ textAlign: "center", width: "300px" }}>Адрес</h2>
                         <h2 style={{ textAlign: "center", width: "120px" }}>Скидка</h2>
                     </div>
-                    <ClientCard setUpdateClientButtonActive={setUpdateClientButtonActive} />
-                    {isUpdateClientButtonActive &&
-                        <NewClientCard
-                            style={{}}
-                            label="Редактирование клиента №id"
-                            buttonName="Отредактировать"
-                            setActive={setUpdateClientButtonActive} />}
+                    {clients
+                        .map((client) => (
+                            <ClientCard
+                                key={client.id}
+                                client={client} />
+                        ))}
                 </div>
             </div>
         </div>
