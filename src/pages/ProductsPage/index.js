@@ -50,7 +50,6 @@ export default function ProductsPage() {
                                 product={product}
                                 setDeleteWindowActive={setAgreeWindowActive} />
                         ))}
-                    {console.log(isAgreeWindowActive)}
                     {isAgreeWindowActive &&
                         <AgreeWindow
                             setActive={setAgreeWindowActive}

@@ -4,10 +4,12 @@ import Header from '../../components/Header';
 import Menu from '../../components/Menu';
 import NewClientCard from '../../components/NewClientCard';
 import ClientCard from '../../components/ClientCard'
+import AgreeWindow from '../../modalWindow/AgreeModalWindow';
 
 export default function ClientsPage() {
     const [isNewClientButtonActive, setNewClientButtonActive] = useState(false);
     const [isUpdateClientButtonActive, setUpdateClientButtonActive] = useState(false);
+    const [isAgreeWindowActive, setAgreeWindowActive] = useState(false);
 
     return (
         <div>
@@ -35,13 +37,21 @@ export default function ClientsPage() {
                         <h2 style={{ textAlign: "center", width: "300px" }}>Адрес</h2>
                         <h2 style={{ textAlign: "center", width: "120px" }}>Скидка</h2>
                     </div>
-                    <ClientCard setUpdateClientButtonActive={setUpdateClientButtonActive} />
+                    <ClientCard setUpdateClientButtonActive={setUpdateClientButtonActive}
+                        setDeleteWindowActive={setAgreeWindowActive} />
                     {isUpdateClientButtonActive &&
                         <NewClientCard
                             style={{}}
                             label="Редактирование клиента №id"
                             buttonName="Отредактировать"
-                            setActive={setUpdateClientButtonActive} />}
+                            setActive={setUpdateClientButtonActive}
+                        />}
+                    {isAgreeWindowActive &&
+                        <AgreeWindow
+                            setActive={setAgreeWindowActive}
+                            fun=""
+                            title="Удаление клиента"
+                            text="Вы действительно хотите удалить клиента?" />}
                 </div>
             </div>
         </div>
