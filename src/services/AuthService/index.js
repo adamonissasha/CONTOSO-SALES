@@ -3,8 +3,11 @@ const url = "http://localhost:8081";
 
 class AuthService {
     login(user) {
-        axios.post(url + "/login", user)
-            .then(({ data }) => localStorage.setItem("user", data));
+        return axios.post(url + "/login", user);
+    }
+
+    registrate(user) {
+        return axios.post(url + "/registrate", user);
     }
 }
 
