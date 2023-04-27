@@ -11,7 +11,7 @@ function ManagersPage() {
     return (
         <div>
             <Header />
-            <div className={s.account}>
+            <div className={s.managers}>
                 <Menu />
                 <div className={s.page}>
                     {console.log(isNewManagerButtonActive)}
