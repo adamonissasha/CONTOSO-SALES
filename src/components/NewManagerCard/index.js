@@ -9,7 +9,7 @@ export default function NewManagerCard({ setNewManagerButtonActive }) {
             </div>
             <div className={s.fields}>
                 <div className={s.photo}>
-                    <img src=".\images\add-image.png" alt="add-image" />
+                    <img src=".\images\add-image.png" alt="add-img" />
                 </div>
                 <div className={s.column}>
                     <p>Имя</p>
