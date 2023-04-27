@@ -1,32 +1,31 @@
-import s from './newProductCard.module.scss';
-import AuthService from '../../services/AuthService';
+import s from './newClientCard.module.scss';
 import React from 'react';
 
-export default function NewProductCard({ setNewProductButtonActive, label, buttonName }) {
+export default function NewClientCard({ setActive, label, buttonName }) {
     return (
         <div className={s.card}>
             <div className={s.header}>
                 <h2 className={s.label}>{label}</h2>
-                <img onClick={() => setNewProductButtonActive(false)} src=".\images\delete.png" alt="close" />
+                <img onClick={() => setActive(false)} src=".\images\delete.png" alt="close" />
             </div>
             <form>
                 <div className={s.fields}>
                     <div className={s.column}>
-                        <p>Название товара</p>
+                        <p>Имя</p>
                         <input
                             className={s.inp}
                             required />
-                        <p>Артикул</p>
+                        <p>Телефон</p>
                         <input
                             className={s.inp}
                             required />
                     </div>
                     <div className={s.column}>
-                        <p>Количество на складе, шт.</p>
+                        <p>Email</p>
                         <input
                             className={s.inp}
                             required />
-                        <p>Цена, руб.</p>
+                        <p>Адрес</p>
                         <input
                             className={s.inp}
                             required />
