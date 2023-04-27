@@ -23,7 +23,7 @@ export default function ProductsPage() {
                 <div className={s.page}>
                     {isNewProductButtonActive ?
                         <NewProductCard
-                            setNewProductButtonActive={setNewProductButtonActive}
+                            setActive={setNewProductButtonActive}
                             label="Добавление нового товара"
                             buttonName="Добавить" /> :
                         <button
