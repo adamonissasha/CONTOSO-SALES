@@ -1,15 +1,18 @@
 import s from './menu.module.scss';
+import React from 'react';
 
 function Menu() {
+    const [user] = React.useState(JSON.parse(localStorage.getItem("user")));
+
     return (
         <div className={s.menu}>
             <div className={s.account}>
-                <img className={s.photo} src=".\images\photo_2023-03-13_16-07-07.jpg" alt="photo" />
+                <img className={s.photo} src=".\images\photo_2023-03-13_16-07-07.jpg" alt="userImg" />
                 <div className={s.text}>
-                    <h2>Илья</h2>
-                    <p>Менеджер отдела продаж</p>
+                    <h2>{user.firstName}</h2>
+                    <p>{user.role}</p>
                 </div>
-                <img className={s.arrow} src='.\images\arrow.svg' />
+                <img className={s.arrow} src='.\images\arrow.svg' alt="arrow" />
             </div>
             <div className={s.row}>Товары</div>
             <div className={s.row}>Заявки</div>
