@@ -7,7 +7,11 @@ class AuthService {
     }
 
     registrate(user) {
-        return axios.post(url + "/registrate", user);
+        return axios.post(url + "/admin/registration", user);
+    }
+
+    changePassword(user) {
+        return axios.post(url + "/users/changePassword", user);
     }
 }
 
