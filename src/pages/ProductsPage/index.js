@@ -21,7 +21,7 @@ export default function ProductsPage() {
         <div>
             <Header />
             <div className={s.products}>
-                <Menu />
+                <Menu page="products" />
                 <div className={s.page}>
                     {isNewProductButtonActive ?
                         <NewProductCard

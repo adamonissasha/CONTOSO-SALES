@@ -15,7 +15,7 @@ export default function ClientsPage() {
         <div>
             <Header />
             <div className={s.products}>
-                <Menu />
+                <Menu page="clients" />
                 <div className={s.page}>
                     {isNewClientButtonActive ?
                         <NewClientCard

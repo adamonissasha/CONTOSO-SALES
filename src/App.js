@@ -5,6 +5,7 @@ import AccountPage from './pages/AccountPage';
 import ManagersPage from './pages/ManagersPage';
 import ProductsPage from './pages/ProductsPage';
 import ClientsPage from './pages/ClientsPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
   const [user, setUser] = React.useState(JSON.parse(localStorage.getItem("user")));
@@ -17,10 +18,11 @@ function App() {
     <div>
       <Routes>
         <Route path="/" element={<LoginPage setUser={setUser} />} />
-        <Route path="/account" element={<AccountPage currentUser={user} />} />
-        <Route path="/managers" element={<ManagersPage />} />
-        <Route path="/products" element={<ProductsPage />} />
-        <Route path="/clients" element={<ClientsPage />} />
+        {localStorage.getItem("user") && <Route path="/account" element={<AccountPage currentUser={user} />} />}
+        {localStorage.getItem("user") && <Route path="/managers" element={<ManagersPage />} />}
+        {localStorage.getItem("user") && <Route path="/products" element={<ProductsPage />} />}
+        {localStorage.getItem("user") && <Route path="/clients" element={<ClientsPage />} />}
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </div>
   );
