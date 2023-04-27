@@ -17,6 +17,10 @@ class ProductService {
     update(id, product) {
         return axios.put(url + "/products/" + id, product);
     }
+
+    addProductAmount(data) {
+        return axios.put(url + "/products/amount", data);
+    }
 }
 
 const productService = new ProductService();
