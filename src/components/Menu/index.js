@@ -1,25 +1,26 @@
 import s from './menu.module.scss';
 import React from 'react';
 
-function Menu() {
+export default function Menu({ page }) {
     const [user] = React.useState(JSON.parse(localStorage.getItem("user")));
 
     return (
         <div className={s.menu}>
-            <div className={s.account}>
-                <img className={s.photo} src=".\images\photo_2023-03-13_16-07-07.jpg" alt="userImg" />
-                <div className={s.text}>
-                    <h2>{user.firstName}</h2>
-                    <p>{user.role}</p>
+            <a href='/account' style={{ textDecoration: 'none' }}>
+                <div className={page === "account" ? s.choosenAccount : s.unchoosenAccount}>
+                    <img className={s.photo} src=".\images\photo_2023-03-13_16-07-07.jpg" alt="userImg" />
+                    <div className={s.text}>
+                        <h2>{user.firstName}</h2>
+                        <p>{user.role}</p>
+                    </div>
+                    <img className={s.arrow} src='.\images\arrow.svg' alt="arrow" />
                 </div>
-                <img className={s.arrow} src='.\images\arrow.svg' alt="arrow" />
-            </div>
-            <div className={s.row}>Товары</div>
-            <div className={s.row}>Заявки</div>
-            <div className={s.row}>Клиенты</div>
-            <div className={s.row}>Заказы</div>
+            </a>
+            <a href='/products' style={{ textDecoration: 'none' }}><div className={page === "products" ? s.choosen : s.unchoosen}><h2>Товары</h2></div></a>
+            <a href='/products' style={{ textDecoration: 'none' }}><div className={page === "requests" ? s.choosen : s.unchoosen}><h2>Заявки</h2></div></a>
+            <a href='/clients' style={{ textDecoration: 'none' }}><div className={page === "clients" ? s.choosen : s.unchoosen}><h2>Клиенты</h2></div></a>
+            <a href='/products' style={{ textDecoration: 'none' }}><div className={page === "orders" ? s.choosen : s.unchoosen}><h2>Заказы</h2></div></a>
+            <a href='/managers' style={{ textDecoration: 'none' }}><div className={page === "managers" ? s.choosen : s.unchoosen}><h2>Менеджеры</h2></div></a>
         </div>
     );
 }
-
-export default Menu;

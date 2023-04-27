@@ -19,7 +19,7 @@ function ManagersPage() {
         <div>
             <Header />
             <div className={s.managers}>
-                <Menu />
+                <Menu page="managers" />
                 <div className={s.page}>
                     {console.log(isNewManagerButtonActive)}
                     {isNewManagerButtonActive ?

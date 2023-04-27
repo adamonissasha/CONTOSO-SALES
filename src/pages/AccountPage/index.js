@@ -20,7 +20,7 @@ function Account({ currentUser }) {
         <div>
             <Header />
             <div className={s.account}>
-                <Menu />
+                <Menu page="account" />
                 <div className={s.page}>
                     <div className={s.info}>
                         <img className={s.photo} src=".\images\photo_2023-03-13_16-07-07.jpg" alt="userImg" />
