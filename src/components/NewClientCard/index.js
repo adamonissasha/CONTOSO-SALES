@@ -12,8 +12,10 @@ export default function NewClientCard({ client, setActive, label, buttonName }) 
         e.preventDefault();
         if (client.id === 0) {
             ClientService.addNew({ name, email, address, phoneNumber });
+            window.location.reload();
         } else {
             ClientService.update(client.id, { name, email, address, phoneNumber });
+            window.location.reload();
         }
     }
 

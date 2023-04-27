@@ -11,6 +11,7 @@ export default function ClientCard({ client, setSendMessageButtonActive }) {
     const onDelete = () => {
         ClientService.delete(client.id);
         setAgreeWindowActive(false);
+        window.location.reload();
     }
 
     return (
