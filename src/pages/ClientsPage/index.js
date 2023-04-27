@@ -3,14 +3,12 @@ import s from './clients.module.scss';
 import Header from '../../components/Header';
 import Menu from '../../components/Menu';
 import NewClientCard from '../../components/NewClientCard';
-import ClientCard from '../../components/ClientCard'
-import AgreeWindow from '../../modalWindow/AgreeModalWindow';
+import ClientCard from '../../components/ClientCard';
 import ClientService from '../../services/ClientService';
 
 export default function ClientsPage() {
     const [isNewClientButtonActive, setNewClientButtonActive] = useState(false);
     const [clients, setClients] = useState([]);
-    const [isAgreeWindowActive, setAgreeWindowActive] = useState(false);
 
     React.useEffect(() => {
         ClientService.getAll()
@@ -48,15 +46,8 @@ export default function ClientsPage() {
                         .map((client) => (
                             <ClientCard
                                 key={client.id}
-                                client={client}
-                                setDeleteWindowActive={setAgreeWindowActive} />
+                                client={client} />
                         ))}
-                    {isAgreeWindowActive &&
-                        <AgreeWindow
-                            setActive={setAgreeWindowActive}
-                            fun=""
-                            title="Удаление клиента"
-                            text="Вы действительно хотите удалить клиента?" />}
                 </div>
             </div>
         </div>

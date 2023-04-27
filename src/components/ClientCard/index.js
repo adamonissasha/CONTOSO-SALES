@@ -1,9 +1,17 @@
 import s from './clientCard.module.scss';
 import React from 'react';
 import NewClientCard from '../NewClientCard';
+import AgreeWindow from '../../modalWindow/AgreeModalWindow';
+import ClientService from '../../services/ClientService';
 
-export default function ClientCard({ client, setSendMessageButtonActive, setDeleteWindowActive }) {
+export default function ClientCard({ client, setSendMessageButtonActive }) {
     const [isUpdateClientButtonActive, setUpdateClientButtonActive] = React.useState(false);
+    const [isAgreeWindowActive, setAgreeWindowActive] = React.useState(false);
+
+    const onDelete = () => {
+        ClientService.delete(client.id);
+        setAgreeWindowActive(false);
+    }
 
     return (
         <div className={s.fullCard}>
@@ -16,7 +24,7 @@ export default function ClientCard({ client, setSendMessageButtonActive, setDele
                 <h2 style={{ textAlign: "center", width: "40px" }}>3%</h2>
                 <img onClick={() => setUpdateClientButtonActive(true)} className={s.edit} src=".\images\edit.png" alt="edit" />
                 <img onClick={() => setSendMessageButtonActive(true)} className={s.send} src=".\images\letter.png" alt="send" />
-                <img onClick={() => setDeleteWindowActive(true)} className={s.remove} src=".\images\remove.png" alt="delete" />
+                <img onClick={() => setAgreeWindowActive(true)} className={s.remove} src=".\images\remove.png" alt="delete" />
             </div>
             {
                 isUpdateClientButtonActive &&
@@ -26,6 +34,12 @@ export default function ClientCard({ client, setSendMessageButtonActive, setDele
                     setActive={setUpdateClientButtonActive}
                     client={client} />
             }
+            {isAgreeWindowActive &&
+                <AgreeWindow
+                    setActive={setAgreeWindowActive}
+                    fun={onDelete}
+                    title="Удаление клиента"
+                    text="Вы действительно хотите удалить клиента?" />}
         </div>
     );
 }
