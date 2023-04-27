@@ -5,12 +5,10 @@ import Menu from '../../components/Menu';
 import ProductCard from '../../components/ProductCard';
 import NewProductCard from '../../components/NewProductCard';
 import ProductService from '../../services/ProductService';
-import AgreeWindow from '../../modalWindow/AgreeModalWindow';
 
 export default function ProductsPage() {
     const [isNewProductButtonActive, setNewProductButtonActive] = useState(false);
     const [products, setProducts] = useState([]);
-    const [isAgreeWindowActive, setAgreeWindowActive] = useState(false);
 
     React.useEffect(() => {
         ProductService.getAll()
@@ -27,7 +25,8 @@ export default function ProductsPage() {
                         <NewProductCard
                             setActive={setNewProductButtonActive}
                             label="Добавление нового товара"
-                            buttonName="Добавить" /> :
+                            buttonName="Добавить"
+                            product={{ id: 0, name: "", code: "", price: "" }} /> :
                         <button
                             className={s.addNew}
                             onClick={() => setNewProductButtonActive(true)}>
@@ -47,15 +46,8 @@ export default function ProductsPage() {
                         .map((product) => (
                             <ProductCard
                                 key={product.id}
-                                product={product}
-                                setDeleteWindowActive={setAgreeWindowActive} />
+                                product={product} />
                         ))}
-                    {isAgreeWindowActive &&
-                        <AgreeWindow
-                            setActive={setAgreeWindowActive}
-                            fun=""
-                            title="Удаление товара"
-                            text="Вы действительно хотите удалить товар?" />}
                 </div>
             </div>
         </div>
