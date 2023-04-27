@@ -1,0 +1,45 @@
+.modal {
+    width: 350px;
+    height: 85px;
+    background-color: #E8E4F4;
+    z-index: 1;
+    position: fixed;
+    bottom: 2.5%;
+    right: 2%;
+    padding: 15px 10px;
+
+    h3 {
+        margin: 0;
+        width: 330px;
+        text-align: left;
+        padding: 10px;
+        font-size: 16px;
+        font-weight: 100;
+    }
+
+    h2 {
+        width: 280px;
+        font-weight: 100;
+        font-size: 18px;
+        margin: 0;
+    }
+
+    .header {
+        display: flex;
+        align-items: center;
+        padding-bottom: 10px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    }
+
+    .warning {
+        width: 20px;
+        height: 20px;
+        padding: 0 15px 5px 10px;
+    }
+
+    .close {
+        width: 15px;
+        height: 15px;
+        padding: 0;
+    }
+}
