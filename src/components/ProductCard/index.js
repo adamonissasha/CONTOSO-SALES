@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import s from './productCard.module.scss';
 import NewProductCard from '../NewProductCard';
+import AddProductCard from '../AddProductCard';
 
-export default function ProductCard({ product }) {
+export default function ProductCard({ product, setDeleteWindowActive }) {
     const [isUpdateProductButtonActive, setUpdateProductButtonActive] = useState(false);
+    const [isAddProductsButtonActive, setAddProductsButtonActive] = useState(false);
 
     return (
         <div className={s.fullCard}>
@@ -14,9 +16,14 @@ export default function ProductCard({ product }) {
                 <h2 style={{ width: "120px" }}>{product.amount}</h2>
                 <h2 style={{ width: "120px" }}>{product.reservedAmount}</h2>
                 <h2 style={{ width: "120px" }}>{product.price}</h2>
+                <img onClick={() => setAddProductsButtonActive(true)} className={s.edit} src=".\images\add.png" alt="edit" />
                 <img onClick={() => setUpdateProductButtonActive(true)} className={s.edit} src=".\images\edit.png" alt="edit" />
-                <img className={s.remove} src=".\images\remove.png" alt="delete" />
+                <img onClick={() => setDeleteWindowActive(true)} className={s.remove} src=".\images\remove.png" alt="delete" />
             </div>
+            {isAddProductsButtonActive &&
+                <AddProductCard
+                    setActive={setAddProductsButtonActive} />
+            }
             {isUpdateProductButtonActive &&
                 <NewProductCard
                     label="Редактирование товара №id"

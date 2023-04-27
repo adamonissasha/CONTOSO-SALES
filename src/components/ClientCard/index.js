@@ -2,7 +2,7 @@ import s from './clientCard.module.scss';
 import React from 'react';
 import NewClientCard from '../NewClientCard';
 
-export default function ClientCard({ client, setSendMessageButtonActive }) {
+export default function ClientCard({ client, setSendMessageButtonActive, setDeleteWindowActive }) {
     const [isUpdateClientButtonActive, setUpdateClientButtonActive] = React.useState(false);
 
     return (
@@ -16,7 +16,7 @@ export default function ClientCard({ client, setSendMessageButtonActive }) {
                 <h2 style={{ textAlign: "center", width: "40px" }}>3%</h2>
                 <img onClick={() => setUpdateClientButtonActive(true)} className={s.edit} src=".\images\edit.png" alt="edit" />
                 <img onClick={() => setSendMessageButtonActive(true)} className={s.send} src=".\images\letter.png" alt="send" />
-                <img className={s.remove} src=".\images\remove.png" alt="delete" />
+                <img onClick={() => setDeleteWindowActive(true)} className={s.remove} src=".\images\remove.png" alt="delete" />
             </div>
             {
                 isUpdateClientButtonActive &&
@@ -25,7 +25,6 @@ export default function ClientCard({ client, setSendMessageButtonActive }) {
                     buttonName="Отредактировать"
                     setActive={setUpdateClientButtonActive}
                     client={client} />
-
             }
         </div>
     );
