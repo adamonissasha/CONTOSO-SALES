@@ -9,12 +9,14 @@ function Login() {
     const onLogin = (e) => {
         e.preventDefault();
         const user = { login, password };
-        AuthService.login(user);
+        AuthService.login(user)
+            .then(({ data }) => localStorage.setItem("user", data));
     }
+
     return (
         <div className={s.content}>
             <h1>CONTOSO sales</h1>
-            <div className={s.login_area}>
+            <form className={s.login_area} onSubmit={(e) => onLogin(e)}>
                 <h2>Вход в аккаунт</h2>
                 <div className={s.input}>
                     <p>Имя пользователя</p>
@@ -35,8 +37,8 @@ function Login() {
                         id='password_input'
                         name='password' />
                 </div>
-                <button className={s.but} onClick={(e) => onLogin(e)}>Войти</button>
-            </div>
+                <button className={s.but}>Войти</button>
+            </form>
         </div>
     )
 }
