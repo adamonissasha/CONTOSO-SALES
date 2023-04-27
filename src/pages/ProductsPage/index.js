@@ -4,10 +4,16 @@ import Header from '../../components/Header';
 import Menu from '../../components/Menu';
 import ProductCard from '../../components/ProductCard';
 import NewProductCard from '../../components/NewProductCard';
+import ProductService from '../../services/ProductService';
 
 export default function ProductsPage() {
     const [isNewProductButtonActive, setNewProductButtonActive] = useState(false);
-    const [isUpdateProductButtonActive, setUpdateProductButtonActive] = useState(false);
+    const [products, setProducts] = useState([]);
+
+    React.useEffect(() => {
+        ProductService.getAll()
+            .then(({ data }) => setProducts(data));
+    }, []);
 
     return (
         <div>
@@ -35,13 +41,12 @@ export default function ProductsPage() {
                         <h2 style={{ width: "120px" }}>Доступно, шт.</h2>
                         <h2 style={{ width: "120px" }}>Цена, руб.</h2>
                     </div>
-                    <ProductCard setUpdateProductButtonActive={setUpdateProductButtonActive} />
-                    {isUpdateProductButtonActive &&
-                        <NewProductCard
-                            style={{}}
-                            label="Редактирование товара №id"
-                            buttonName="Отредактировать"
-                            setNewProductButtonActive={setUpdateProductButtonActive} />}
+                    {products
+                        .map((product) => (
+                            <ProductCard
+                                key={product.id}
+                                product={product} />
+                        ))}
                 </div>
             </div>
         </div>
