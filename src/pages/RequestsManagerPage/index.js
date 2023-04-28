@@ -13,7 +13,7 @@ export default function RequestManagerPage({ currentUser }) {
     React.useEffect(() => {
         RequestService.getByManagerId(currentUser.id)
             .then(({ data }) => setRequests(data));
-    }, []);
+    }, [currentUser.id]);
 
     return (
         <div>
