@@ -49,25 +49,42 @@ export default function NewRequestCard({ setActive }) {
         return sum;
     };
 
+    const isAllProductsSelected = () => {
+        for (var i = 0; i < requestProducts.length; i++) {
+            if (requestProducts[i].product === JSON.stringify({})) {
+                return false;
+            }
+        }
+        return true;
+    };
+
     const onAddNewRequest = (e) => {
         e.preventDefault();
         if (clientId === 0) {
             setTitle("Ошибка");
-            setNotificationText("Вы не можете оставить заявку без заказчика!");
+            setNotificationText("Вы не можете сформировать заявку без заказчика!");
             setNotificationActive(true);
-        } else {
-            const requestLists = requestProducts.map(req => ({
-                productId: JSON.parse(req.product).id,
-                amount: req.amount
-            }));
-            RequestService.addNew({ clientId, userId, date: date.split("-").reverse().join("."), note, requestLists }).then(() => {
-                window.location.reload();
-            }).catch(function (error) {
-                setNotificationText(error.response.data.message);
-                setNotificationActive(true);
-                setTitle("Ошибка")
-            });
-        };
+            return;
+        }
+        if (!isAllProductsSelected()) {
+            setTitle("Ошибка");
+            setNotificationText("Вы не выбрали все товары, которые добавили в заявку!");
+            setNotificationActive(true);
+            return;
+        }
+
+        const requestLists = requestProducts.map(req => ({
+            productId: JSON.parse(req.product).id,
+            amount: req.amount
+        }));
+        RequestService.addNew({ clientId, userId, date: date.split("-").reverse().join("."), note, requestLists }).then(() => {
+            window.location.reload();
+        }).catch(function (error) {
+            setNotificationText(error.response.data.message);
+            setNotificationActive(true);
+            setTitle("Ошибка")
+        });
+
     }
 
     useEffect(() => {
