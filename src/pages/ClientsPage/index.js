@@ -39,7 +39,8 @@ export default function ClientsPage() {
                     {isSendMessageButtonActive ?
                         <SendMessageCard
                             label="Рассылка предложений клиентам"
-                            setActive={setSendMessageButtonActive} /> :
+                            setActive={setSendMessageButtonActive}
+                            clientId={0} /> :
                         <button
                             className={s.sendMessage}
                             onClick={() => setSendMessageButtonActive(true)}>

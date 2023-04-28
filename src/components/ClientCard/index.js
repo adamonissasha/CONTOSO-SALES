@@ -39,7 +39,8 @@ export default function ClientCard({ client }) {
             {isSendMessageButtonActive &&
                 <SendMessageCard
                     label={"Отправка письма клиенту " + client.name}
-                    setActive={setSendMessageButtonActive} />
+                    setActive={setSendMessageButtonActive}
+                    clientId={client.id} />
             }
             {isAgreeWindowActive &&
                 <AgreeWindow
