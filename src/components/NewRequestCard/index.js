@@ -11,14 +11,14 @@ export default function NewRequestCard({ setActive }) {
     const [title, setTitle] = useState("");
     const [clients, setClients] = useState([]);
     const [products, setProducts] = useState([]);
-    const [requestProducts, setRequestProducts] = useState([{ product: JSON.stringify({}), amount: 0 }])
+    const [requestProducts, setRequestProducts] = useState([{ product: JSON.stringify({}), amount: 1 }])
     const [clientId, setClientId] = useState(0);
     const [userId] = useState(JSON.parse(localStorage.getItem("user")).id);
     const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
     const [note, setNote] = useState("");
 
     const handleAddProduct = () => {
-        setRequestProducts([...requestProducts, { product: JSON.stringify({}), amount: 0 }]);
+        setRequestProducts([...requestProducts, { product: JSON.stringify({}), amount: 1 }]);
     };
 
     const handleProductChange = (index, event) => {
@@ -60,10 +60,15 @@ export default function NewRequestCard({ setActive }) {
                 productId: JSON.parse(req.product).id,
                 amount: req.amount
             }));
-            RequestService.addNew({ clientId, userId, date: date.split("-").reverse().join("."), note, requestLists });
-            window.location.reload();
-        }
-    };
+            RequestService.addNew({ clientId, userId, date: date.split("-").reverse().join("."), note, requestLists }).then(() => {
+                window.location.reload();
+            }).catch(function (error) {
+                setNotificationText(error.response.data.message);
+                setNotificationActive(true);
+                setTitle("Ошибка")
+            });
+        };
+    }
 
     useEffect(() => {
         ClientService.getAll()
@@ -123,6 +128,7 @@ export default function NewRequestCard({ setActive }) {
                                 className={s.inpAmount}
                                 type="number"
                                 name="amount"
+                                min={1}
                                 required
                                 value={reqProduct.amount}
                                 onChange={(event) => handleProductChange(index, event)} />
@@ -137,7 +143,7 @@ export default function NewRequestCard({ setActive }) {
                         <p>Примечание</p>
                         <input value={note} onChange={(e) => setNote(e.target.value)} className={s.inp} />
                         <div className={s.sum}>
-                            <h2>Итоговая сумма: </h2><h3>{getTotalSum()} бел.руб.</h3>
+                            <h2>Итоговая сумма: </h2><h3>{getTotalSum()} руб.</h3>
                         </div>
                     </div>
                     <div className={s.col}>

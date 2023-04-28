@@ -1,20 +1,27 @@
 import s from './requestManagerCard.module.scss';
 import { useState } from 'react';
-import NewClientCard from '../NewClientCard';
 import AgreeWindow from '../../modalWindow/AgreeModalWindow';
-import ClientService from '../../services/ClientService';
-import SendMessageCard from '../SendMesageCard';
+import RequestService from '../../services/RequestService';
 
 export default function RequestManagerCard({ request }) {
     const [isUpdateClientButtonActive, setUpdateClientButtonActive] = useState(false);
     const [isAgreeWindowActive, setAgreeWindowActive] = useState(false);
     const [isCardOpen, setCardOpen] = useState(false);
+
     const getRequestSum = () => {
         var sum = 0;
         for (var i = 0; i < request.rlist.length; i++) {
             sum += request.rlist[i].clientAmount * request.rlist[i].pricePerItem;
         }
         return sum;
+    }
+
+    const onDelete = () => {
+        RequestService.delete(request.requestId)
+            .then(() => {
+                setAgreeWindowActive(false);
+                window.location.reload();
+            });
     }
 
     return (
@@ -84,13 +91,13 @@ export default function RequestManagerCard({ request }) {
                     buttonName="Отредактировать"
                     setActive={setUpdateClientButtonActive}
                     client={client} />
-            }
-            {isAgreeWindowActive &&
-                <AgreeWindow
-                    setActive={setAgreeWindowActive}
-                    fun={onDelete}
-                    title="Удаление клиента"
-                    text="Вы действительно хотите удалить клиента?" />} */}
+            } */}
+                {isAgreeWindowActive &&
+                    <AgreeWindow
+                        setActive={setAgreeWindowActive}
+                        fun={onDelete}
+                        title="Удаление заявки"
+                        text="Вы действительно хотите удалить заявку?" />}
             </div >
 
         </div>
