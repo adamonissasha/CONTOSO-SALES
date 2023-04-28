@@ -1,10 +1,17 @@
-import React from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import s from './login.module.scss';
 import AuthService from '../../services/AuthService';
+import Notification from '../../modalWindow/Notification';
 
 function Login({ setUser }) {
-    const [password, setPassword] = React.useState('admin');
-    const [login, setLogin] = React.useState('admin');
+    const [password, setPassword] = useState('admin');
+    const [login, setLogin] = useState('admin');
+    const navigate = useNavigate();
+    const [isNotificationActive, setNotificationActive] = useState(false)
+    const [notificationText, setNotificationText] = useState(false)
+    const [title, setTitle] = useState(false)
+
 
     const onLogin = (e) => {
         e.preventDefault();
@@ -13,7 +20,13 @@ function Login({ setUser }) {
             .then(({ data }) => {
                 localStorage.setItem("user", JSON.stringify(data));
                 setUser(data);
-            });
+                navigate('/account')
+            })
+            .catch(function (error) {
+                setNotificationText(error.response.data.message);
+                setNotificationActive(true);
+                setTitle("Ошибка")
+            });;
     }
 
     return (
@@ -42,6 +55,11 @@ function Login({ setUser }) {
                 </div>
                 <button className={s.but}>Войти</button>
             </form>
+            {isNotificationActive &&
+                <Notification
+                    title={title}
+                    text={notificationText}
+                    setActive={setNotificationActive} />}
         </div>
     )
 }
