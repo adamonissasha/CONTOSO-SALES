@@ -49,12 +49,13 @@ export default function ClientsPage() {
                         </button>
                     }
                     <div className={s.tableHeader}>
-                        <h2 style={{ paddingLeft: "20px", width: "70px" }}>№</h2>
-                        <h2 style={{ textAlign: "center", width: "120px" }}>Имя</h2>
-                        <h2 style={{ textAlign: "center", width: "250px" }}>Почта</h2>
-                        <h2 style={{ textAlign: "center", width: "150px" }}>Номер телефона</h2>
-                        <h2 style={{ textAlign: "center", width: "300px" }}>Адрес</h2>
-                        <h2 style={{ textAlign: "center", width: "120px" }}>Скидка</h2>
+                        <h2 style={{ textAlign: "center", width: "8%" }}>№</h2>
+                        <h2 style={{ textAlign: "center", width: "15%" }}>Имя</h2>
+                        <h2 style={{ textAlign: "center", width: "20%" }}>Почта</h2>
+                        <h2 style={{ textAlign: "center", width: "15%" }}>Номер телефона</h2>
+                        <h2 style={{ textAlign: "center", width: "20%" }}>Адрес</h2>
+                        <h2 style={{ textAlign: "center", width: "10% " }}>Скидка</h2>
+                        <h2 style={{ textAlign: "center", width: "10% " }}></h2>
                     </div>
                     {clients
                         .map((client) => (

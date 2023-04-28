@@ -67,7 +67,7 @@ export default function RequestAdminCard({ request }) {
                                 .map((product) => (
                                     <div style={product.amount - product.reservedAmount < product.clientAmount ? { backgroundColor: "#F3E7E6" } : {}} className={s.productCard}>
                                         <h3 style={{ textAlign: "center", width: "10%" }}>{product.productId}</h3>
-                                        <h3 style={{ width: "35%" }}>{product.name}</h3>
+                                        <h3 style={{ textAlign: "center", width: "35%" }}>{product.name}</h3>
                                         <h3 style={{ textAlign: "center", width: "10%" }}>{product.code}</h3>
                                         <h3 style={{ textAlign: "center", width: "15%" }}>{product.clientAmount}</h3>
                                         <h3 style={{ textAlign: "center", width: "15%" }}>{product.amount - product.reservedAmount}</h3>
