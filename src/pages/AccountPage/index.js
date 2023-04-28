@@ -1,21 +1,42 @@
-import React from 'react';
+import { useState } from 'react';
 import s from './account.module.scss';
 import Header from '../../components/Header';
 import Menu from '../../components/Menu';
 import AuthService from '../../services/AuthService';
+import Notification from '../../modalWindow/Notification';
 
 function Account({ currentUser }) {
-    const [oldPassword, setOldPassword] = React.useState('');
-    const [newPassword, setNewPassword] = React.useState('');
-    const [newPassword2, setNewPassword2] = React.useState('');
+    const [oldPassword, setOldPassword] = useState('');
+    const [newPassword, setNewPassword] = useState('');
+    const [newPassword2, setNewPassword2] = useState('');
+    const [isNotificationActive, setNotificationActive] = useState(false);
+    const [notificationText, setNotificationText] = useState("");
+    const [title, setTitle] = useState("");
 
     const onChangePassword = (e) => {
         e.preventDefault();
         if (newPassword === newPassword2) {
             const user = { userId: currentUser.id, oldPassword, newPassword };
-            AuthService.changePassword(user);
+            AuthService.changePassword(user)
+                .then(response => {
+                    setNotificationText(response.data);
+                    setNotificationActive(true);
+                    setTitle("Уведомление")
+                })
+                .catch(function (error) {
+                    if (error.response.status === 400) {
+                        setNotificationText(error.response.data.message);
+                        setNotificationActive(true);
+                        setTitle("Ошибка")
+                    }
+                });
+        } else {
+            setNotificationText("Пароли не совпадают!");
+            setNotificationActive(true);
+            setTitle("Ошибка")
         }
     }
+
     return (
         <div>
             <Header />
@@ -60,6 +81,11 @@ function Account({ currentUser }) {
                         </form>
                     </div>
                 </div>
+                {isNotificationActive &&
+                    <Notification
+                        title={title}
+                        text={notificationText}
+                        setActive={setNotificationActive} />}
             </div>
         </div>
     )

@@ -9,45 +9,46 @@
     display: flex;
     justify-content: center;
     align-items: center;
-}
 
-.modal_content {
-    padding: 20px;
-    background-color: #E8E4F4;
-    width: 400px;
-    height: 130px;
+    .modal_content {
+        padding: 20px;
+        background-color: #E8E4F4;
+        width: 400px;
+        height: 130px;
 
-    h3 {
-        margin: 0;
-        width: 380px;
-        text-align: left;
-        padding: 10px;
-        font-weight: 100;
-    }
+        h3 {
+            margin: 0;
+            width: 380px;
+            text-align: left;
+            padding: 10px;
+            font-weight: 100;
+        }
 
-    h2 {
-        font-weight: 100;
-        width: 100%;
-        text-align: center;
-        margin: 0;
-    }
+        h2 {
+            font-weight: 100;
+            width: 100%;
+            text-align: center;
+            margin: 0;
+            color: black;
+        }
 
-    .header {
-        display: flex;
-        align-items: center;
-        padding-bottom: 10px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-    }
+        .header {
+            display: flex;
+            align-items: center;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+        }
 
-    .buttons {
-        width: 380px;
-        height: 30px;
-        padding: 10px 10px 20px 10px;
-        display: flex;
-        justify-content: space-between;
-    }
+        .buttons {
+            width: 380px;
+            height: 30px;
+            padding: 10px 10px 20px 10px;
+            display: flex;
+            justify-content: space-between;
+        }
 
-    .btn {
-        width: 180px;
+        .btn {
+            width: 180px;
+        }
     }
 }
