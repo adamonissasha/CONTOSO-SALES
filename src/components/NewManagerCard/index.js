@@ -8,11 +8,16 @@ export default function NewManagerCard({ setNewManagerButtonActive }) {
     const [firstName, setFirstName] = React.useState('Matvei');
     const [lastName, setLastName] = React.useState('Stremous');
     const [phoneNumber, setPhoneNumber] = React.useState('+375331234567');
+    const [imageUrl, setImageUrl] = React.useState((Math.floor(Math.random() * 18) + 1) + ".png");
 
     const onRegistrate = (e) => {
         e.preventDefault();
-        const user = { login, password, firstName, lastName, phoneNumber };
+        const user = { login, password, firstName, lastName, phoneNumber, image: imageUrl };
         ManagerService.registrate(user);
+    }
+
+    const onChangePhoto = () => {
+        setImageUrl((Math.floor(Math.random() * 18) + 1) + ".png");
     }
 
     return (
@@ -23,7 +28,7 @@ export default function NewManagerCard({ setNewManagerButtonActive }) {
             </div>
             <form className={s.fields} onSubmit={(e) => onRegistrate(e)}>
                 <div className={s.photo}>
-                    <img src=".\images\add-image.png" alt="add-img" />
+                    <img onClick={() => onChangePhoto()} src={".\\images\\avatars\\" + imageUrl} alt="add-img" />
                 </div>
                 <div className={s.column}>
                     <p>Имя</p>

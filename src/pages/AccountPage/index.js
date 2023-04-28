@@ -44,7 +44,7 @@ function Account({ currentUser }) {
                 <Menu page="account" />
                 <div className={s.page}>
                     <div className={s.info}>
-                        <img className={s.photo} src=".\images\photo_2023-03-13_16-07-07.jpg" alt="userImg" />
+                        <img className={s.photo} src={".\\images\\avatars\\" + currentUser.image} alt="userImg" />
                         <div className={s.text}>
                             <h2>{currentUser.lastName} {currentUser.firstName}</h2>
                             <h3>{currentUser.login}</h3>

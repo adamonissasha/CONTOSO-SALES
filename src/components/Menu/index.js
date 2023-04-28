@@ -8,7 +8,7 @@ export default function Menu({ page }) {
         <div className={s.menu}>
             <a href='/account' style={{ textDecoration: 'none' }}>
                 <div className={page === "account" ? s.choosenAccount : s.unchoosenAccount}>
-                    <img className={s.photo} src=".\images\photo_2023-03-13_16-07-07.jpg" alt="userImg" />
+                    <img className={s.photo} src={".\\images\\avatars\\" + user.image} alt="userImg" />
                     <div className={s.text}>
                         <h2>{user.firstName}</h2>
                         <p>{user.role}</p>
