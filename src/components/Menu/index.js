@@ -18,7 +18,7 @@ export default function Menu({ page }) {
             </a>
             <a href='/products' style={{ textDecoration: 'none' }}><div className={page === "products" ? s.choosen : s.unchoosen}><h2>Товары</h2></div></a>
             <a href='/manager/requests' style={{ textDecoration: 'none' }}><div className={page === "manager-requests" ? s.choosen : s.unchoosen}><h2>Заявки MANAGER</h2></div></a>
-            <a href='/manager/requests' style={{ textDecoration: 'none' }}><div className={page === "admin-requests" ? s.choosen : s.unchoosen}><h2>Заявки ADMIN</h2></div></a>
+            <a href='/admin/requests' style={{ textDecoration: 'none' }}><div className={page === "admin-requests" ? s.choosen : s.unchoosen}><h2>Заявки ADMIN</h2></div></a>
             <a href='/clients' style={{ textDecoration: 'none' }}><div className={page === "clients" ? s.choosen : s.unchoosen}><h2>Клиенты</h2></div></a>
             <a href='/products' style={{ textDecoration: 'none' }}><div className={page === "orders" ? s.choosen : s.unchoosen}><h2>Заказы</h2></div></a>
             <a href='/managers' style={{ textDecoration: 'none' }}><div className={page === "managers" ? s.choosen : s.unchoosen}><h2>Менеджеры ADMIN</h2></div></a>

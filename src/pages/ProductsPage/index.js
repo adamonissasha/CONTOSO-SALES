@@ -35,12 +35,13 @@ export default function ProductsPage() {
                         </button>
                     }
                     <div className={s.tableHeader}>
-                        <h2 style={{ paddingLeft: "20px", width: "70px" }}>№</h2>
-                        <h2 style={{ width: "475px" }}>Название</h2>
-                        <h2 style={{ width: "100px" }}>Актикул</h2>
-                        <h2 style={{ width: "120px" }}>В резерве, шт.</h2>
-                        <h2 style={{ width: "120px" }}>Доступно, шт.</h2>
-                        <h2 style={{ width: "120px" }}>Цена, руб.</h2>
+                        <h2 style={{ textAlign: "center", width: "8%" }}>№</h2>
+                        <h2 style={{ textAlign: "center", width: "20%" }}>Название</h2>
+                        <h2 style={{ textAlign: "center", width: "15%" }}>Актикул</h2>
+                        <h2 style={{ textAlign: "center", width: "15%" }}>В резерве, шт.</h2>
+                        <h2 style={{ textAlign: "center", width: "15%" }}>Доступно, шт.</h2>
+                        <h2 style={{ textAlign: "center", width: "15%" }}>Цена, руб.</h2>
+                        <div style={{ width: "10%" }}></div>
                     </div>
                     {products
                         .map((product) => (
