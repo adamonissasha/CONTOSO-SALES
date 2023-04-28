@@ -1,6 +1,7 @@
 import s from './newManagerCard.module.scss';
 import ManagerService from '../../services/ManagerService';
 import React from 'react';
+import Notification from '../../modalWindow/Notification';
 
 export default function NewManagerCard({ setNewManagerButtonActive }) {
     const [password, setPassword] = React.useState('admin');
@@ -10,10 +11,24 @@ export default function NewManagerCard({ setNewManagerButtonActive }) {
     const [phoneNumber, setPhoneNumber] = React.useState('+375331234567');
     const [imageUrl, setImageUrl] = React.useState((Math.floor(Math.random() * 18) + 1) + ".png");
 
+    const [isNotificationActive, setNotificationActive] = React.useState(false);
+    const [notificationText, setNotificationText] = React.useState("");
+    const [title, setTitle] = React.useState("");
+
     const onRegistrate = (e) => {
         e.preventDefault();
         const user = { login, password, firstName, lastName, phoneNumber, image: imageUrl };
-        ManagerService.registrate(user);
+        ManagerService.registrate(user)
+            .then(() => {
+                window.location.reload();
+            })
+            .catch(function (error) {
+                if (error.response.status === 404) {
+                    setNotificationText(error.response.data.message);
+                    setNotificationActive(true);
+                    setTitle("Ошибка")
+                }
+            });
     }
 
     const onChangePhoto = () => {
@@ -62,6 +77,11 @@ export default function NewManagerCard({ setNewManagerButtonActive }) {
                     <button className={s.but}><h2>Зарегистрировать</h2></button>
                 </div>
             </form>
+            {isNotificationActive &&
+                <Notification
+                    title={title}
+                    text={notificationText}
+                    setActive={setNotificationActive} />}
         </div>
     );
 }
