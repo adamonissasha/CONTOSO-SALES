@@ -23,7 +23,7 @@ function App() {
         {localStorage.getItem("user") && <Route path="/managers" element={<ManagersPage />} />}
         {localStorage.getItem("user") && <Route path="/products" element={<ProductsPage />} />}
         {localStorage.getItem("user") && <Route path="/clients" element={<ClientsPage />} />}
-        {localStorage.getItem("user") && <Route path="/manager/requests" element={<RequestManagerPage />} />}
+        {localStorage.getItem("user") && <Route path="/manager/requests" element={<RequestManagerPage currentUser={user} />} />}
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </div>

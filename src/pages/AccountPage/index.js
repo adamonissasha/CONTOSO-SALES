@@ -21,7 +21,10 @@ function Account({ currentUser }) {
                 .then(response => {
                     setNotificationText(response.data);
                     setNotificationActive(true);
-                    setTitle("Уведомление")
+                    setTitle("Уведомление");
+                    setNewPassword("");
+                    setOldPassword("");
+                    setNewPassword2("");
                 })
                 .catch(function (error) {
                     setNotificationText(error.response.data.message);
