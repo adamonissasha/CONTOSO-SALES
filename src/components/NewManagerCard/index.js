@@ -10,7 +10,6 @@ export default function NewManagerCard({ setNewManagerButtonActive }) {
     const [lastName, setLastName] = React.useState('Stremous');
     const [phoneNumber, setPhoneNumber] = React.useState('+375331234567');
     const [imageUrl, setImageUrl] = React.useState((Math.floor(Math.random() * 18) + 1) + ".png");
-
     const [isNotificationActive, setNotificationActive] = React.useState(false);
     const [notificationText, setNotificationText] = React.useState("");
     const [title, setTitle] = React.useState("");
