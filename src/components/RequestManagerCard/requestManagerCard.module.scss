@@ -1,0 +1,113 @@
+.full {
+    width: 100%;
+
+    .fullCard {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card {
+        width: 95%;
+        padding-top: 10px;
+        background-color: #F5F3FC;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 10px;
+
+        .openCard {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+
+            .header {
+                width: 95%;
+                background-color: #E8E4F4;
+                display: flex;
+                height: 40px;
+                margin-bottom: 10px;
+
+                h3 {
+                    font-weight: 400;
+                    font-size: 100%;
+                    margin: 8px 0px;
+                }
+            }
+
+            .productCard {
+                width: 95%;
+                background-color: #F5F3FC;
+                display: flex;
+                height: 40px;
+
+                h3 {
+                    font-weight: 100;
+                    font-size: 100%;
+                    margin: 8px 0px;
+                }
+            }
+
+
+        }
+
+        .aarrowButton {
+            background-color: #F5F3FC;
+            height: 30px;
+            width: 100%;
+
+            &:hover {
+                background-color: #E8E4F4;
+            }
+        }
+
+        .info {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+
+            h2 {
+                font-weight: 100;
+                font-size: 100%;
+                margin: 0;
+            }
+
+            h3 {
+                font-weight: 400;
+                font-size: 120%;
+                margin: 0;
+            }
+
+            .column {
+                display: flex;
+                flex-direction: column;
+
+                .row {
+                    height: 40px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+                }
+            }
+
+            .edit {
+                height: 20px;
+                width: 20px;
+                margin-right: 15px;
+            }
+
+            .remove {
+                height: 23px;
+                width: 23px;
+            }
+        }
+
+        .arrow {
+            margin: 10px 0px;
+        }
+    }
+}
