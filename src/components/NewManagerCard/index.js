@@ -2,6 +2,7 @@ import s from './newManagerCard.module.scss';
 import ManagerService from '../../services/ManagerService';
 import React from 'react';
 import Notification from '../../modalWindow/Notification';
+import PhoneInput from 'react-phone-input-2';
 
 export default function NewManagerCard({ setNewManagerButtonActive }) {
     const [password, setPassword] = React.useState('admin');
@@ -57,10 +58,20 @@ export default function NewManagerCard({ setNewManagerButtonActive }) {
                         className={s.inp}
                         required />
                     <p>Номер телефона</p>
-                    <input value={phoneNumber}
+                    <PhoneInput
+                        value={phoneNumber}
+                        onChange={(obj) => setPhoneNumber(obj)}
+                        inputClass={s.phone}
+                        country={'by'}
+                        specialLabel=""
+                        required
+                        inputExtraProps={{
+                            mask: '+375 (99) 99-99-999'
+                        }} />
+                    {/* <input value={phoneNumber}
                         onChange={(obj) => setPhoneNumber(obj.target.value)}
                         className={s.inp}
-                        required />
+                        required /> */}
                 </div>
                 <div className={s.column}>
                     <p>Логин</p>
