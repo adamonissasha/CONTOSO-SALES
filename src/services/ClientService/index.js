@@ -19,11 +19,11 @@ class ClientService {
     }
 
     sendOneMessage(id, data) {
-        return axios.post(url + "/clients/message/" + id, data);
+        return axios.post(url + "/clients/message/" + id, data, { headers: { "Content-Type": "multipart/form-data" } });
     }
 
     sendMessageToAll(data) {
-        return axios.post(url + "/clients/message", data);
+        return axios.post(url + "/clients/message", data, { headers: { "Content-Type": "multipart/form-data" } });
     }
 }
 

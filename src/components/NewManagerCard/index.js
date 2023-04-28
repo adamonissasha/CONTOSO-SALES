@@ -1,6 +1,7 @@
 import s from './newManagerCard.module.scss';
 import ManagerService from '../../services/ManagerService';
 import React from 'react';
+import Notification from '../../modalWindow/Notification';
 
 export default function NewManagerCard({ setNewManagerButtonActive }) {
     const [password, setPassword] = React.useState('admin');
@@ -8,11 +9,30 @@ export default function NewManagerCard({ setNewManagerButtonActive }) {
     const [firstName, setFirstName] = React.useState('Matvei');
     const [lastName, setLastName] = React.useState('Stremous');
     const [phoneNumber, setPhoneNumber] = React.useState('+375331234567');
+    const [imageUrl, setImageUrl] = React.useState((Math.floor(Math.random() * 18) + 1) + ".png");
+
+    const [isNotificationActive, setNotificationActive] = React.useState(false);
+    const [notificationText, setNotificationText] = React.useState("");
+    const [title, setTitle] = React.useState("");
 
     const onRegistrate = (e) => {
         e.preventDefault();
-        const user = { login, password, firstName, lastName, phoneNumber };
-        ManagerService.registrate(user);
+        const user = { login, password, firstName, lastName, phoneNumber, image: imageUrl };
+        ManagerService.registrate(user)
+            .then(() => {
+                window.location.reload();
+            })
+            .catch(function (error) {
+                if (error.response.status === 404) {
+                    setNotificationText(error.response.data.message);
+                    setNotificationActive(true);
+                    setTitle("Ошибка")
+                }
+            });
+    }
+
+    const onChangePhoto = () => {
+        setImageUrl((Math.floor(Math.random() * 18) + 1) + ".png");
     }
 
     return (
@@ -23,7 +43,7 @@ export default function NewManagerCard({ setNewManagerButtonActive }) {
             </div>
             <form className={s.fields} onSubmit={(e) => onRegistrate(e)}>
                 <div className={s.photo}>
-                    <img src=".\images\add-image.png" alt="add-img" />
+                    <img onClick={() => onChangePhoto()} src={".\\images\\avatars\\" + imageUrl} alt="add-img" />
                 </div>
                 <div className={s.column}>
                     <p>Имя</p>
@@ -57,6 +77,11 @@ export default function NewManagerCard({ setNewManagerButtonActive }) {
                     <button className={s.but}><h2>Зарегистрировать</h2></button>
                 </div>
             </form>
+            {isNotificationActive &&
+                <Notification
+                    title={title}
+                    text={notificationText}
+                    setActive={setNotificationActive} />}
         </div>
     );
 }

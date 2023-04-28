@@ -13,7 +13,7 @@ export default function NewProductCard({ product, setActive, label, buttonName }
             ProductService.addNew({ name, code, price });
             window.location.reload();
         } else {
-            ProductService.update(product.id, { name, code, price });
+            ProductService.update(product.id, { name, code, price, amount: product.amount, reservedAmount: product.reservedAmount });
             window.location.reload();
         }
     }
