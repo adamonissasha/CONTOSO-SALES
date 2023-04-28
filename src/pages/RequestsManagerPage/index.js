@@ -4,14 +4,15 @@ import Header from '../../components/Header';
 import Menu from '../../components/Menu';
 import RequestManagerCard from '../../components/RequestManagerCard';
 import NewRequestCard from '../../components/NewRequestCard';
+import RequestService from '../../services/RequestService';
 
-export default function RequestManagerPage() {
+export default function RequestManagerPage({ currentUser }) {
     const [isNewRequestButtonActive, setNewRequestButtonActive] = useState(false);
     const [requests, setRequests] = useState([]);
 
     React.useEffect(() => {
-        // ProductService.getAll()
-        //     .then(({ data }) => setRequests(data));
+        RequestService.getByManagerId(currentUser.id)
+            .then(({ data }) => setRequests(data));
     }, []);
 
     return (
@@ -30,13 +31,12 @@ export default function RequestManagerPage() {
                             <h2>Добавить новую заявку</h2>
                         </button>
                     }
-                    {/* {requests
+                    {requests
                         .map((request) => (
-                            <RequestCard
+                            <RequestManagerCard
                                 key={request.id}
                                 request={request} />
-                        ))} */}
-                    <RequestManagerCard request />
+                        ))}
                 </div>
             </div>
         </div>
