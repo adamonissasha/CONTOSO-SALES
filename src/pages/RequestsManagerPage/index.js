@@ -28,7 +28,7 @@ export default function RequestManagerPage({ currentUser }) {
                             className={s.addNew}
                             onClick={() => setNewRequestButtonActive(true)}>
                             <img className={s.plus} src="../../images/add.png" alt="add" />
-                            <h2>Добавить новую заявку</h2>
+                            <h2>Оформить новую заявку</h2>
                         </button>
                     }
                     {requests

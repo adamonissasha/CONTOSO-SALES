@@ -38,7 +38,6 @@
             width: 190px;
             height: 190px;
             border-radius: 100px;
-            background-color: white;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -63,6 +62,7 @@
             .inp {
                 width: 90%;
                 height: 35px;
+                padding: 0px 20px;
                 margin-bottom: 10px;
                 padding: 0px 20px;
             }

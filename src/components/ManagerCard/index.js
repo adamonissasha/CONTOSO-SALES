@@ -15,7 +15,7 @@ export default function ManagerCard({ manager }) {
     return (
         <div className={s.fullCard}>
             <div className={s.card}>
-                <img className={s.photo} src={".\\images\\avatars\\" + manager.image} alt="user" />
+                <img className={s.photo} src={"..\\..\\images\\avatars\\" + manager.image} alt="user" />
                 <div className={s.text}>
                     <h2>{manager.lastName} {manager.firstName}</h2>
                     <h3>{manager.login}</h3>

@@ -27,11 +27,9 @@ function Account({ currentUser }) {
                     setNewPassword2("");
                 })
                 .catch(function (error) {
-                    if (error.response.status === 400) {
-                        setNotificationText(error.response.data.message);
-                        setNotificationActive(true);
-                        setTitle("Ошибка")
-                    }
+                    setNotificationText(error.response.data.message);
+                    setNotificationActive(true);
+                    setTitle("Ошибка")
                 });
         } else {
             setNotificationText("Пароли не совпадают!");
