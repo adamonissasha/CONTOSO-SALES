@@ -3,7 +3,7 @@ import React from 'react';
 import ProductService from '../../services/ProductService';
 
 export default function AddProductCard({ productId, setActive }) {
-    const [amount, setAmount] = React.useState(0);
+    const [amount, setAmount] = React.useState(1);
 
     const onAdd = (e) => {
         e.preventDefault();
@@ -21,6 +21,8 @@ export default function AddProductCard({ productId, setActive }) {
                 <div className={s.column}>
                     <p>Количество</p>
                     <input value={amount}
+                        type='number'
+                        min={1}
                         onChange={(obj) => setAmount(obj.target.value)}
                         className={s.inp}
                         required />

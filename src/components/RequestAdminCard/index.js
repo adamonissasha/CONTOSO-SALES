@@ -1,6 +1,7 @@
 import s from './requestAdminCard.module.scss';
 import { useState } from 'react';
 import AgreeWindow from '../../modalWindow/AgreeModalWindow';
+import RequestService from '../../services/RequestService';
 
 export default function RequestAdminCard({ request }) {
     const [isAgreeWindowActive, setAgreeWindowActive] = useState(false);
@@ -14,6 +15,17 @@ export default function RequestAdminCard({ request }) {
             sum += request.rlist[i].clientAmount * request.rlist[i].pricePerItem;
         }
         return sum;
+    }
+
+    const onAction = (status) => {
+        RequestService.changeStatus(request.requestId, status)
+            .then(() => {
+                window.location.reload();
+            })
+            .catch(function (error) {
+                alert(error.response.data.message);
+            });
+
     }
 
     return (
@@ -75,8 +87,8 @@ export default function RequestAdminCard({ request }) {
                                     </div>
                                 ))}
                             <div className={s.buttons}>
-                                <button className={s.but}>Подтвердить заявку</button>
-                                <button className={s.but}>Отклонить заявку</button>
+                                <button className={s.but} onClick={() => onAction("COMPLETED")}>Подтвердить заявку</button>
+                                <button className={s.but} onClick={() => onAction("CANCELLED")}>Отклонить заявку</button>
                             </div>
                             <button className={s.aarrowButton} onClick={() => setCardOpen(false)} ><img className={s.arrow} src="..\..\images\arrow-top.svg" alt="top-arrow" /></button>
                         </div> :
