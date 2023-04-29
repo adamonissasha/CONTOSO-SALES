@@ -21,6 +21,9 @@ class RequestService {
     update(id, product) {
         return axios.put(url + "/products/" + id, product);
     }
+    changeStatus(id, status) {
+        return axios.put(url + "/admin/status/" + id + "/" + status);
+    }
 }
 
 const requestService = new RequestService();
