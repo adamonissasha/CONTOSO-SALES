@@ -17,16 +17,23 @@ export default function RequestAdminPage({ currentUser }) {
     return (
         <div>
             <Header />
+
             <div className={s.products}>
                 <Menu page="admin-requests" />
-                <div className={s.page}>
-                    {requests
-                        .map((request) => (
-                            <RequestAdminCard
-                                key={request.id}
-                                request={request} />
-                        ))}
-                </div>
+                {requests.length === 0 ?
+                    <div className={s.page}>
+                        <div className={s.no}><h2>В настоящее время нет оформленных заявок</h2></div>
+                    </div> :
+                    <div className={s.page}>
+                        {requests
+                            .map((request) => (
+                                <RequestAdminCard
+                                    key={request.id}
+                                    request={request} />
+                            ))
+                        }
+                    </div>
+                }
             </div>
         </div>
     )

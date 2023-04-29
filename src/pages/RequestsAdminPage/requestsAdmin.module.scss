@@ -8,6 +8,18 @@
         flex-direction: column;
         align-items: center;
 
+        .no {
+            width: 95%;
+            display: flex;
+            justify-content: center;
+            background-color: #F5F3FC;
+
+            h2 {
+                font-weight: 100;
+                font-size: 30px;
+            }
+        }
+
         .addNew {
             width: 95%;
             height: 50px;
