@@ -77,7 +77,7 @@ export default function NewRequestCard({ setActive }) {
             productId: JSON.parse(req.product).id,
             amount: req.amount
         }));
-        RequestService.addNew({ clientId, userId, date: date.split("-").reverse().join("."), note, requestLists }).then(() => {
+        RequestService.addNew({ clientId, userId, dateOfDelivery: date.split("-").reverse().join("."), note, requestLists }).then(() => {
             window.location.reload();
         }).catch(function (error) {
             setNotificationText(error.response.data.message);
