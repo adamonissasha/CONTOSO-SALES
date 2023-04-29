@@ -1,20 +1,34 @@
 import s from './newProductCard.module.scss';
-import React from 'react';
+import { useState } from 'react';
 import ProductService from '../../services/ProductService';
+import Notification from '../../modalWindow/Notification';
 
 export default function NewProductCard({ product, setActive, label, buttonName }) {
-    const [name, setName] = React.useState(product.name);
-    const [price, setPrice] = React.useState(product.price);
-    const [code, setCode] = React.useState(product.code);
+    const [isNotificationActive, setNotificationActive] = useState(false);
+    const [notificationText, setNotificationText] = useState("");
+    const [title, setTitle] = useState("");
+    const [name, setName] = useState(product.name);
+    const [price, setPrice] = useState(product.price);
+    const [code, setCode] = useState(product.code);
 
     const onCommit = (e) => {
         e.preventDefault();
         if (product.id === 0) {
-            ProductService.addNew({ name, code, price });
-            window.location.reload();
+            ProductService.addNew({ name, code, price })
+                .then(() => window.location.reload())
+                .catch(function (error) {
+                    setNotificationText(error.response.data.message);
+                    setNotificationActive(true);
+                    setTitle("Ошибка")
+                });
         } else {
-            ProductService.update(product.id, { name, code, price, amount: product.amount, reservedAmount: product.reservedAmount });
-            window.location.reload();
+            ProductService.update(product.id, { name, code, price, amount: product.amount, reservedAmount: product.reservedAmount })
+                .then(() => window.location.reload())
+                .catch(function (error) {
+                    setNotificationText(error.response.data.message);
+                    setNotificationActive(true);
+                    setTitle("Ошибка")
+                });
         }
     }
 
@@ -46,6 +60,11 @@ export default function NewProductCard({ product, setActive, label, buttonName }
                     <button className={s.but}>{buttonName}</button>
                 </div>
             </form>
+            {isNotificationActive &&
+                <Notification
+                    title={title}
+                    text={notificationText}
+                    setActive={setNotificationActive} />}
         </div>
     );
 }
