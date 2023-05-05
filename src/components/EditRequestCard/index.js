@@ -1,18 +1,16 @@
-import s from './newRequestCard.module.scss';
+import s from './editRequestCard.module.scss';
 import { useState, useEffect } from 'react';
 import Notification from '../../modalWindow/Notification';
 import ClientService from '../../services/ClientService';
 import ProductService from '../../services/ProductService';
 import RequestService from '../../services/RequestService';
 
-export default function NewRequestCard({ setActive }) {
+export default function EditRequestCard({ setActive, request }) {
     const [isNotificationActive, setNotificationActive] = useState(false);
     const [notificationText, setNotificationText] = useState("");
     const [title, setTitle] = useState("");
-    const [clients, setClients] = useState([]);
     const [products, setProducts] = useState([]);
     const [requestProducts, setRequestProducts] = useState([{ product: JSON.stringify({}), amount: 1 }])
-    const [clientId, setClientId] = useState(0);
     const [userId] = useState(JSON.parse(localStorage.getItem("user")).id);
     const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
     const [note, setNote] = useState("");
@@ -58,38 +56,31 @@ export default function NewRequestCard({ setActive }) {
         return true;
     };
 
-    const onAddNewRequest = (e) => {
-        e.preventDefault();
-        if (clientId === 0) {
-            setTitle("Ошибка");
-            setNotificationText("Вы не можете сформировать заявку без заказчика!");
-            setNotificationActive(true);
-            return;
-        }
-        if (!isAllProductsSelected()) {
-            setTitle("Ошибка");
-            setNotificationText("Вы не выбрали все товары, которые добавили в заявку!");
-            setNotificationActive(true);
-            return;
-        }
+    // const onAddNewRequest = (e) => {
+    //     e.preventDefault();
+    //     if (!isAllProductsSelected()) {
+    //         setTitle("Ошибка");
+    //         setNotificationText("Вы не выбрали все товары, которые добавили в заявку!");
+    //         setNotificationActive(true);
+    //         return;
+    //     }
 
-        const requestLists = requestProducts.map(req => ({
-            productId: JSON.parse(req.product).id,
-            amount: req.amount
-        }));
-        RequestService.addNew({ clientId, userId, dateOfDelivery: date.split("-").reverse().join("."), note, requestLists, paymentMethod: "CARD" }).then(() => {
-            window.location.reload();
-        }).catch(function (error) {
-            setNotificationText(error.response.data.message);
-            setNotificationActive(true);
-            setTitle("Ошибка")
-        });
+    //     const requestLists = requestProducts.map(req => ({
+    //         productId: JSON.parse(req.product).id,
+    //         amount: req.amount
+    //     }));
+    //     RequestService.addNew({ clientId, userId, dateOfDelivery: date.split("-").reverse().join("."), note, requestLists, paymentMethod: "CARD" }).then(() => {
+    //         window.location.reload();
+    //     }).catch(function (error) {
+    //         setNotificationText(error.response.data.message);
+    //         setNotificationActive(true);
+    //         setTitle("Ошибка")
+    //     });
 
-    }
+    // }
 
     useEffect(() => {
-        ClientService.getAll()
-            .then(({ data }) => setClients(data));
+        console.log(request)
         ProductService.getAll()
             .then(({ data }) => setProducts(data));
     }, []);
@@ -97,21 +88,14 @@ export default function NewRequestCard({ setActive }) {
     return (
         <div className={s.card}>
             <div className={s.header}>
-                <h2 className={s.label}>Добавить новую заявку</h2>
+                <h2 className={s.label}>Редактирование заявки</h2>
                 <img onClick={() => setActive(false)} src="..\..\images\delete.png" alt="close" />
             </div>
             <form>
                 <div className={s.fields}>
                     <div className={s.column}>
                         <p>Заказчик</p>
-                        <select
-                            onChange={(e) => setClientId(e.target.value)}
-                            className={s.sel}>
-                            <option value="0">Выберите заказчика</option>
-                            {clients.map((client) =>
-                                <option value={client.id} >{client.email}</option>
-                            )}
-                        </select>
+                        <h2 className={s.client}>{request.clientEmail}</h2>
                         <p>Продукты</p>
                     </div>
                     <div className={s.column}>
@@ -175,7 +159,7 @@ export default function NewRequestCard({ setActive }) {
                             </div>
                             <button type='button' className={s.but} onClick={handleAddProduct}>Добавить товар</button>
                         </div>
-                        <button className={s.but} onClick={(e) => onAddNewRequest(e)}>Оформить</button>
+                        <button className={s.but}>Отредактировать</button>
                     </div>
                 </div>
             </form>
