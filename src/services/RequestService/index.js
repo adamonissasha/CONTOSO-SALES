@@ -18,8 +18,8 @@ class RequestService {
         return axios.delete(url + "/request/" + id);
     }
 
-    update(id, product) {
-        return axios.put(url + "/products/" + id, product);
+    update(id, request) {
+        return axios.put(url + "/request/" + id, request);
     }
     changeStatus(id, status) {
         return axios.put(url + "/admin/status/" + id + "/" + status);

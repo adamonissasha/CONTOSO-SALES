@@ -16,6 +16,7 @@ export default function NewRequestCard({ setActive }) {
     const [userId] = useState(JSON.parse(localStorage.getItem("user")).id);
     const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
     const [note, setNote] = useState("");
+    const [paymentMethod, setPaymentMethod] = useState("CARD");
 
     const handleAddProduct = () => {
         setRequestProducts([...requestProducts, { product: JSON.stringify({}), amount: 1 }]);
@@ -77,7 +78,7 @@ export default function NewRequestCard({ setActive }) {
             productId: JSON.parse(req.product).id,
             amount: req.amount
         }));
-        RequestService.addNew({ clientId, userId, dateOfDelivery: date.split("-").reverse().join("."), note, requestLists, paymentMethod: "CARD" }).then(() => {
+        RequestService.addNew({ clientId, userId, dateOfDelivery: date.split("-").reverse().join("."), note, requestLists, paymentMethod }).then(() => {
             window.location.reload();
         }).catch(function (error) {
             setNotificationText(error.response.data.message);
@@ -168,9 +169,9 @@ export default function NewRequestCard({ setActive }) {
                         <div className={s.payAdd}>
                             <div className={s.payment}>
                                 <p>Способ оплаты</p>
-                                <select>
-                                    <option>Карта</option>
-                                    <option>Наличные</option>
+                                <select value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)}>
+                                    <option value="CARD">Карта</option>
+                                    <option value="CASH">Наличные</option>
                                 </select>
                             </div>
                             <button type='button' className={s.but} onClick={handleAddProduct}>Добавить товар</button>
