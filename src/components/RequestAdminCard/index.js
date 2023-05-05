@@ -2,12 +2,17 @@ import s from './requestAdminCard.module.scss';
 import { useState } from 'react';
 import AgreeWindow from '../../modalWindow/AgreeModalWindow';
 import RequestService from '../../services/RequestService';
+import Notification from '../../modalWindow/Notification';
 
 export default function RequestAdminCard({ request }) {
     const [isAgreeWindowActive, setAgreeWindowActive] = useState(false);
-    const [agreeText, setAgreeText] = useState("")
-    const [agreeTitle, setAgreeTitle] = useState("")
+    const [agreeText, setAgreeText] = useState("");
+    const [agreeTitle, setAgreeTitle] = useState("");
+    const [isNotificationActive, setNotificationActive] = useState(false);
+    const [notificationText, setNotificationText] = useState(false);
+    const [title, setTitle] = useState(false);
     const [isCardOpen, setCardOpen] = useState(false);
+    const [status, setStatus] = useState("");
 
     const getRequestSum = () => {
         var sum = 0;
@@ -23,9 +28,11 @@ export default function RequestAdminCard({ request }) {
                 window.location.reload();
             })
             .catch(function (error) {
-                alert(error.response.data.message);
+                setAgreeWindowActive(false);
+                setNotificationText(error.response.data.message);
+                setNotificationActive(true);
+                setTitle("Ошибка");
             });
-
     }
 
     return (
@@ -41,7 +48,7 @@ export default function RequestAdminCard({ request }) {
                             </div>
                             <div className={s.row}>
                                 <h3 style={{ width: "110px" }}>Менеджер: </h3>
-                                <h2 style={{ width: "250px" }}>Игнатовия Илья</h2>
+                                <h2 style={{ width: "250px" }}>{request.fullName}</h2>
                             </div>
                         </div>
                         <div className={s.column}>
@@ -96,8 +103,18 @@ export default function RequestAdminCard({ request }) {
                                 </div>
                             </div>
                             <div className={s.buttons}>
-                                <button className={s.but} onClick={() => onAction("COMPLETED")}>Подтвердить заявку</button>
-                                <button className={s.but} onClick={() => onAction("CANCELLED")}>Отклонить заявку</button>
+                                <button className={s.but} onClick={() => {
+                                    setStatus("COMPLETED")
+                                    setAgreeWindowActive(true);
+                                    setAgreeText("Вы уверены, что хотите оформить заказ по этой заявке?");
+                                    setAgreeTitle("Подтверждение заявки");
+                                }}>Подтвердить заявку</button>
+                                <button className={s.but} onClick={() => {
+                                    setStatus("CANCELLED")
+                                    setAgreeWindowActive(true);
+                                    setAgreeText("Вы уверены, что хотите отклонить эту заявку?");
+                                    setAgreeTitle("Отклонение заявки");
+                                }}>Отклонить заявку</button>
                             </div>
                             <button className={s.aarrowButton} onClick={() => setCardOpen(false)} ><img className={s.arrow} src="..\..\images\arrow-top.svg" alt="top-arrow" /></button>
                         </div> :
@@ -106,9 +123,14 @@ export default function RequestAdminCard({ request }) {
                 {isAgreeWindowActive &&
                     <AgreeWindow
                         setActive={setAgreeWindowActive}
-                        // fun={}
+                        fun={() => onAction(status)}
                         title={agreeTitle}
                         text={agreeText} />}
+                {isNotificationActive &&
+                    <Notification
+                        title={title}
+                        text={notificationText}
+                        setActive={setNotificationActive} />}
             </div >
 
         </div>

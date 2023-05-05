@@ -6,7 +6,7 @@ import Notification from '../../modalWindow/Notification';
 
 function Login({ setUser }) {
     const [password, setPassword] = useState('admin');
-    const [login, setLogin] = useState('admin');
+    const [login, setLogin] = useState('admin@gmail.com');
     const navigate = useNavigate();
     const [isNotificationActive, setNotificationActive] = useState(false)
     const [notificationText, setNotificationText] = useState(false)

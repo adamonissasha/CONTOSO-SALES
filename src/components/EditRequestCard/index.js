@@ -1,7 +1,6 @@
 import s from './editRequestCard.module.scss';
 import { useState, useEffect } from 'react';
 import Notification from '../../modalWindow/Notification';
-import ClientService from '../../services/ClientService';
 import ProductService from '../../services/ProductService';
 import RequestService from '../../services/RequestService';
 
@@ -10,10 +9,11 @@ export default function EditRequestCard({ setActive, request }) {
     const [notificationText, setNotificationText] = useState("");
     const [title, setTitle] = useState("");
     const [products, setProducts] = useState([]);
-    const [requestProducts, setRequestProducts] = useState([{ product: JSON.stringify({}), amount: 1 }])
+    const [requestProducts, setRequestProducts] = useState([]);
     const [userId] = useState(JSON.parse(localStorage.getItem("user")).id);
-    const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
-    const [note, setNote] = useState("");
+    const [date, setDate] = useState(request.dateTime.split(".").reverse().join("-"));
+    const [note, setNote] = useState(request.note);
+    const [paymentMethod, setPaymentMethod] = useState(request.paymentMethod === "Карта" ? "CARD" : "CASH");
 
     const handleAddProduct = () => {
         setRequestProducts([...requestProducts, { product: JSON.stringify({}), amount: 1 }]);
@@ -56,34 +56,45 @@ export default function EditRequestCard({ setActive, request }) {
         return true;
     };
 
-    // const onAddNewRequest = (e) => {
-    //     e.preventDefault();
-    //     if (!isAllProductsSelected()) {
-    //         setTitle("Ошибка");
-    //         setNotificationText("Вы не выбрали все товары, которые добавили в заявку!");
-    //         setNotificationActive(true);
-    //         return;
-    //     }
+    const onEditRequest = (e) => {
+        e.preventDefault();
+        if (!isAllProductsSelected()) {
+            setTitle("Ошибка");
+            setNotificationText("Вы не выбрали все товары, которые добавили в заявку!");
+            setNotificationActive(true);
+            return;
+        }
 
-    //     const requestLists = requestProducts.map(req => ({
-    //         productId: JSON.parse(req.product).id,
-    //         amount: req.amount
-    //     }));
-    //     RequestService.addNew({ clientId, userId, dateOfDelivery: date.split("-").reverse().join("."), note, requestLists, paymentMethod: "CARD" }).then(() => {
-    //         window.location.reload();
-    //     }).catch(function (error) {
-    //         setNotificationText(error.response.data.message);
-    //         setNotificationActive(true);
-    //         setTitle("Ошибка")
-    //     });
-
-    // }
+        const requestLists = requestProducts.map(req => ({
+            productId: JSON.parse(req.product).id,
+            amount: req.amount
+        }));
+        RequestService.update(request.requestId, { userId, dateOfDelivery: date.split("-").reverse().join("."), note, requestLists, paymentMethod: paymentMethod }).then(() => {
+            window.location.reload();
+        }).catch(function (error) {
+            setNotificationText(error.response.data.message);
+            setNotificationActive(true);
+            setTitle("Ошибка")
+        });
+    }
 
     useEffect(() => {
-        console.log(request)
+        const resultArray = request.rlist.map((item) => ({
+            amount: item.clientAmount,
+            product: JSON.stringify({
+                id: item.productId,
+                name: item.name,
+                code: item.code,
+                reservedAmount: item.reservedAmount,
+                amount: item.amount,
+                price: item.pricePerItem
+            })
+        }));
+        setRequestProducts(resultArray);
+
         ProductService.getAll()
             .then(({ data }) => setProducts(data));
-    }, []);
+    }, [request.rlist]);
 
     return (
         <div className={s.card}>
@@ -91,7 +102,7 @@ export default function EditRequestCard({ setActive, request }) {
                 <h2 className={s.label}>Редактирование заявки</h2>
                 <img onClick={() => setActive(false)} src="..\..\images\delete.png" alt="close" />
             </div>
-            <form>
+            <form onSubmit={(e) => onEditRequest(e)}>
                 <div className={s.fields}>
                     <div className={s.column}>
                         <p>Заказчик</p>
@@ -113,6 +124,8 @@ export default function EditRequestCard({ setActive, request }) {
                     <div key={index} className={s.fields}>
                         <div className={s.product}>
                             <select
+                                defaultValue={reqProduct.product}
+                                value={reqProduct.product}
                                 className={s.selProduct}
                                 name="product"
                                 onChange={(event) => handleProductChange(index, event)}>
@@ -152,9 +165,9 @@ export default function EditRequestCard({ setActive, request }) {
                         <div className={s.payAdd}>
                             <div className={s.payment}>
                                 <p>Способ оплаты</p>
-                                <select>
-                                    <option>Карта</option>
-                                    <option>Наличные</option>
+                                <select value={paymentMethod} defaultValue={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)}>
+                                    <option value="CARD">Карта</option>
+                                    <option value="CASH">Наличные</option>
                                 </select>
                             </div>
                             <button type='button' className={s.but} onClick={handleAddProduct}>Добавить товар</button>

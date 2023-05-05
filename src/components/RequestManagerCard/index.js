@@ -58,7 +58,7 @@ export default function RequestManagerCard({ request }) {
                             </div>
                             <div className={s.row} />
                         </div>
-                        <img onClick={() => setUpdateClientButtonActive(true)} className={s.edit} src="..\..\images\edit.png" alt="edit" />
+                        <img onClick={() => setUpdateClientButtonActive(!isUpdateClientButtonActive)} className={s.edit} src="..\..\images\edit.png" alt="edit" />
                         <img onClick={() => setAgreeWindowActive(true)} className={s.remove} src="..\..\images\remove.png" alt="delete" />
                     </div>
                     {isCardOpen ?
