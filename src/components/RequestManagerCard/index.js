@@ -3,6 +3,7 @@ import { useState } from 'react';
 import AgreeWindow from '../../modalWindow/AgreeModalWindow';
 import RequestService from '../../services/RequestService';
 import EditRequestCard from '../../components/EditRequestCard';
+import ReissueRequestCard from '../ReissueRequestCard';
 
 export default function RequestManagerCard({ request }) {
     const [isUpdateClientButtonActive, setUpdateClientButtonActive] = useState(false);
@@ -97,6 +98,11 @@ export default function RequestManagerCard({ request }) {
                 </div>
                 {(isUpdateClientButtonActive && request.status === "Оформлена") &&
                     <EditRequestCard
+                        setActive={setUpdateClientButtonActive}
+                        request={request} />
+                }
+                {(isUpdateClientButtonActive && request.status === "Отклонена") &&
+                    <ReissueRequestCard
                         setActive={setUpdateClientButtonActive}
                         request={request} />
                 }
