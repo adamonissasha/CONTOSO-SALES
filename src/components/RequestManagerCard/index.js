@@ -3,6 +3,7 @@ import { useState } from 'react';
 import AgreeWindow from '../../modalWindow/AgreeModalWindow';
 import RequestService from '../../services/RequestService';
 import EditRequestCard from '../../components/EditRequestCard';
+import ReissueRequestCard from '../ReissueRequestCard';
 
 export default function RequestManagerCard({ request }) {
     const [isUpdateClientButtonActive, setUpdateClientButtonActive] = useState(false);
@@ -82,12 +83,26 @@ export default function RequestManagerCard({ request }) {
                                         <h3 style={{ textAlign: "center", width: "15%" }}>{product.clientAmount * product.pricePerItem}</h3>
                                     </div>
                                 ))}
+                            <div className={s.notePayment}>
+                                <div className={s.row}>
+                                    <h3 style={{ width: "150px" }}>Примечание: </h3>
+                                    <h2 style={{ width: "800px" }}>{request.note}</h2>
+                                </div> <div className={s.row}>
+                                    <h3 style={{ width: "150px" }}>Способ оплаты: </h3>
+                                    <h2 style={{ width: "250px" }}>{request.paymentMethod}</h2>
+                                </div>
+                            </div>
                             <button className={s.aarrowButton} onClick={() => setCardOpen(false)} ><img className={s.arrow} src="..\..\images\arrow-top.svg" alt="top-arrow" /></button>
                         </div> :
                         <button className={s.aarrowButton} onClick={() => setCardOpen(true)} ><img className={s.arrow} src="..\..\images\arrow-bottom.svg" alt="bottom-arrow" /></button>}
                 </div>
                 {(isUpdateClientButtonActive && request.status === "Оформлена") &&
                     <EditRequestCard
+                        setActive={setUpdateClientButtonActive}
+                        request={request} />
+                }
+                {(isUpdateClientButtonActive && request.status === "Отклонена") &&
+                    <ReissueRequestCard
                         setActive={setUpdateClientButtonActive}
                         request={request} />
                 }
