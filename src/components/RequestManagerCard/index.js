@@ -2,6 +2,7 @@ import s from './requestManagerCard.module.scss';
 import { useState } from 'react';
 import AgreeWindow from '../../modalWindow/AgreeModalWindow';
 import RequestService from '../../services/RequestService';
+import EditRequestCard from '../../components/EditRequestCard';
 
 export default function RequestManagerCard({ request }) {
     const [isUpdateClientButtonActive, setUpdateClientButtonActive] = useState(false);
@@ -85,13 +86,11 @@ export default function RequestManagerCard({ request }) {
                         </div> :
                         <button className={s.aarrowButton} onClick={() => setCardOpen(true)} ><img className={s.arrow} src="..\..\images\arrow-bottom.svg" alt="bottom-arrow" /></button>}
                 </div>
-                {/* {isUpdateClientButtonActive &&
-                <NewClientCard
-                    label={"Редактирование клиента №" + client.id}
-                    buttonName="Отредактировать"
-                    setActive={setUpdateClientButtonActive}
-                    client={client} />
-            } */}
+                {(isUpdateClientButtonActive && request.status === "Оформлена") &&
+                    <EditRequestCard
+                        setActive={setUpdateClientButtonActive}
+                        request={request} />
+                }
                 {isAgreeWindowActive &&
                     <AgreeWindow
                         setActive={setAgreeWindowActive}
