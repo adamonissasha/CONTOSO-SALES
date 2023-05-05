@@ -86,6 +86,15 @@ export default function RequestAdminCard({ request }) {
                                         <h3 style={{ textAlign: "center", width: "12%" }}>{product.pricePerItem}</h3>
                                     </div>
                                 ))}
+                            <div className={s.notePayment}>
+                                <div className={s.row}>
+                                    <h3 style={{ width: "150px" }}>Примечание: </h3>
+                                    <h2 style={{ width: "800px" }}>{request.note}</h2>
+                                </div> <div className={s.row}>
+                                    <h3 style={{ width: "150px" }}>Способ оплаты: </h3>
+                                    <h2 style={{ width: "250px" }}>{request.paymentMethod}</h2>
+                                </div>
+                            </div>
                             <div className={s.buttons}>
                                 <button className={s.but} onClick={() => onAction("COMPLETED")}>Подтвердить заявку</button>
                                 <button className={s.but} onClick={() => onAction("CANCELLED")}>Отклонить заявку</button>

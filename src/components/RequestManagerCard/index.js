@@ -82,6 +82,15 @@ export default function RequestManagerCard({ request }) {
                                         <h3 style={{ textAlign: "center", width: "15%" }}>{product.clientAmount * product.pricePerItem}</h3>
                                     </div>
                                 ))}
+                            <div className={s.notePayment}>
+                                <div className={s.row}>
+                                    <h3 style={{ width: "150px" }}>Примечание: </h3>
+                                    <h2 style={{ width: "800px" }}>{request.note}</h2>
+                                </div> <div className={s.row}>
+                                    <h3 style={{ width: "150px" }}>Способ оплаты: </h3>
+                                    <h2 style={{ width: "250px" }}>{request.paymentMethod}</h2>
+                                </div>
+                            </div>
                             <button className={s.aarrowButton} onClick={() => setCardOpen(false)} ><img className={s.arrow} src="..\..\images\arrow-top.svg" alt="top-arrow" /></button>
                         </div> :
                         <button className={s.aarrowButton} onClick={() => setCardOpen(true)} ><img className={s.arrow} src="..\..\images\arrow-bottom.svg" alt="bottom-arrow" /></button>}
