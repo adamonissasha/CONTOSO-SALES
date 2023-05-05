@@ -11,7 +11,7 @@ export default function EditRequestCard({ setActive, request }) {
     const [products, setProducts] = useState([]);
     const [requestProducts, setRequestProducts] = useState([]);
     const [userId] = useState(JSON.parse(localStorage.getItem("user")).id);
-    const [date, setDate] = useState(request.dateTime.split(".").reverse().join("-"));
+    const [date, setDate] = useState(request.dateOfDelivery.split(".").reverse().join("-"));
     const [note, setNote] = useState(request.note);
     const [paymentMethod, setPaymentMethod] = useState(request.paymentMethod === "Карта" ? "CARD" : "CASH");
 
