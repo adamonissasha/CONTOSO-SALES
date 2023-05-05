@@ -9,9 +9,8 @@ export default function RequestAdminPage({ currentUser }) {
     const [requests, setRequests] = useState([]);
 
     React.useEffect(() => {
-        RequestService.getByManagerId(currentUser.id)
+        RequestService.getAll()
             .then(({ data }) => setRequests(data));
-        console.log(requests)
     }, []);
 
     return (

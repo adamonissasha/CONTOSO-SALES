@@ -3,7 +3,7 @@ const url = "http://localhost:8081";
 
 class RequestService {
     getAll() {
-        return axios.get(url + "/request");
+        return axios.get(url + "/requests");
     }
 
     getByManagerId(id) {
