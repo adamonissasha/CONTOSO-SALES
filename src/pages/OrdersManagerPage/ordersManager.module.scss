@@ -8,6 +8,18 @@
         flex-direction: column;
         align-items: center;
 
+        .no {
+            width: 95%;
+            display: flex;
+            justify-content: center;
+            background-color: #F5F3FC;
+
+            h2 {
+                font-weight: 100;
+                font-size: 30px;
+            }
+        }
+
         .addNew {
             width: 95%;
             height: 50px;
@@ -15,7 +27,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
 
             .plus {
                 width: 17px;
@@ -28,30 +40,6 @@
                 font-size: 100%;
                 margin: 0;
                 color: black;
-            }
-        }
-
-        .search {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-
-            img {
-                width: 20px;
-                height: 20px;
-                margin-right: 10px;
-            }
-
-            h3 {
-                font-weight: 200;
-                font-size: 24px;
-                margin: 0px 15px 0px 0px;
-            }
-
-            .inp {
-                width: 87%;
-                height: 35px;
-                padding: 0px 20px;
             }
         }
 

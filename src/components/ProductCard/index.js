@@ -23,7 +23,7 @@ export default function ProductCard({ product }) {
                 <h2 style={{ textAlign: "center", width: "20%" }}>{product.name}</h2>
                 <h2 style={{ textAlign: "center", width: "15%" }}>{product.code}</h2>
                 <h2 style={{ textAlign: "center", width: "15%" }}>{product.reservedAmount}</h2>
-                <h2 style={{ textAlign: "center", width: "15%" }}>{product.amount}</h2>
+                <h2 style={{ textAlign: "center", width: "15%" }}>{product.amount - product.reservedAmount}</h2>
                 <h2 style={{ textAlign: "center", width: "15%" }}>{product.price}</h2>
                 <img onClick={() => setAddProductsButtonActive(true)} className={s.edit} src=".\images\add.png" alt="edit" />
                 <img onClick={() => setUpdateProductButtonActive(true)} className={s.edit} src=".\images\edit.png" alt="edit" />
