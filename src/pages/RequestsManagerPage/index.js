@@ -36,11 +36,14 @@ export default function RequestManagerPage({ currentUser }) {
                             <h2>Оформить новую заявку</h2>
                         </button>
                     }
-                    <select value={selectedStatus} onChange={(obj) => setSelectedStatus(obj.target.value)}>
-                        <option value="">Все</option>
-                        <option value="Отклонена">Отклонённые</option>
-                        <option value="Оформлена">Оформленные</option>
-                    </select>
+                    {
+                        requests.length !== 0 &&
+                        <select className={s.selRequest} value={selectedStatus} onChange={(obj) => setSelectedStatus(obj.target.value)}>
+                            <option value="">Все</option>
+                            <option value="Отклонена">Отклонённые</option>
+                            <option value="Оформлена">Оформленные</option>
+                        </select>
+                    }
                     {filteredRequests
                         .map((request) => (
                             <RequestManagerCard
