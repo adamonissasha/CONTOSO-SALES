@@ -2,6 +2,7 @@ import s from './orderAdminCard.module.scss';
 import { useState } from 'react';
 import AgreeWithMessageWindow from '../../modalWindow/AgreeWithMessageModalWindow';
 import Notification from '../../modalWindow/Notification';
+import OrderService from '../../services/OrderService';
 
 export default function OrderAdminCard({ order }) {
     const [isAgreeWithMessageWindowActive, setAgreeWithMessageWindowActive] = useState(false);
@@ -11,28 +12,20 @@ export default function OrderAdminCard({ order }) {
     const [notificationText, setNotificationText] = useState(false);
     const [title, setTitle] = useState(false);
     const [isCardOpen, setCardOpen] = useState(false);
-    const [status, setStatus] = useState("");
+    const [message, setMessage] = useState("");
 
-    // const getOrderSum = () => {
-    //     var sum = 0;
-    //     for (var i = 0; i < order.rlist.length; i++) {
-    //         sum += order.rlist[i].clientAmount * order.rlist[i].pricePerItem;
-    //     }
-    //     return sum;
-    // }
-
-    // const onAction = (status) => {
-    //     RequestService.changeStatus(request.requestId, status)
-    //         .then(() => {
-    //             window.location.reload();
-    //         })
-    //         .catch(function (error) {
-    //             setAgreeWindowActive(false);
-    //             setNotificationText(error.response.data.message);
-    //             setNotificationActive(true);
-    //             setTitle("Ошибка");
-    //         });
-    // }
+    const onCancelOrder = () => {
+        OrderService.cancel({ orderId: order.id, message })
+            .then(() => {
+                window.location.reload();
+            })
+            .catch(function (error) {
+                setAgreeWithMessageWindowActive(false);
+                setNotificationText(error.response.data.message);
+                setNotificationActive(true);
+                setTitle("Ошибка");
+            });
+    }
 
     return (
         <div className={s.full}>
@@ -53,11 +46,11 @@ export default function OrderAdminCard({ order }) {
                         <div className={s.column}>
                             <div className={s.row}>
                                 <h3 style={{ width: "180px" }}>Дата оформления: </h3>
-                                <h2 style={{ width: "180px" }}>{order.dateOfCreate}</h2>
+                                <h2 style={{ width: "180px" }}>{order.dateOfCreate.split("-").reverse().join(".")}</h2>
                             </div>
                             <div className={s.row}>
                                 <h3 style={{ width: "180px" }}>Дата доставки: </h3>
-                                <h2 style={{ width: "180px" }}>{order.dateOfDelivery}</h2>
+                                <h2 style={{ width: "180px" }}>{order.dateOfDelivery.split("-").reverse().join(".")}</h2>
                             </div>
                         </div>
                         <div className={s.column}>
@@ -104,7 +97,6 @@ export default function OrderAdminCard({ order }) {
                             </div>
                             <div className={s.buttons}>
                                 <button className={s.but} onClick={() => {
-                                    setStatus("CANCELLED")
                                     setAgreeWithMessageWindowActive(true);
                                     setAgreeText("Вы уверены, что хотите отменить этот заказ? Оставьте сообщение с причиной отмены.");
                                     setAgreeTitle("Отмена заказа");
@@ -117,13 +109,15 @@ export default function OrderAdminCard({ order }) {
                 {isAgreeWithMessageWindowActive &&
                     <AgreeWithMessageWindow
                         setActive={setAgreeWithMessageWindowActive}
+                        fun={onCancelOrder}
                         title={agreeTitle}
-                        text={agreeText} />}
-                {/* {isNotificationActive &&
+                        text={agreeText}
+                        setMessage={setMessage} />}
+                {isNotificationActive &&
                     <Notification
                         title={title}
                         text={notificationText}
-                        setActive={setNotificationActive} />} */}
+                        setActive={setNotificationActive} />}
             </div >
         </div>
     );
