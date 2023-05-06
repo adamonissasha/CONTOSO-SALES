@@ -2,33 +2,35 @@ import React, { useState } from 'react';
 import s from './ordersAdmin.module.scss';
 import Header from '../../components/Header';
 import Menu from '../../components/Menu';
-import RequestAdminCard from '../../components/RequestAdminCard';
-import RequestService from '../../services/RequestService';
+import OrderService from '../../services/OrderService';
+import OrderAdminCard from '../../components/OrderAdminCard';
 
 export default function OrdersAdminPage() {
-    const [requests, setRequests] = useState([]);
+    const [orders, setOrders] = useState([]);
 
     React.useEffect(() => {
-        RequestService.getAll()
-            .then(({ data }) => setRequests(data));
+        OrderService.getAll()
+            .then(({ data }) => {
+                setOrders(data)
+                console.log(data)
+            });
     }, []);
 
     return (
         <div>
             <Header />
-
             <div className={s.products}>
-                <Menu page="orders" />
-                {requests.length === 0 ?
+                <Menu page="admin-orders" />
+                {orders.length === 0 ?
                     <div className={s.page}>
-                        <div className={s.no}><h2>В настоящее время нет оформленных заявок</h2></div>
+                        <div className={s.no}><h2>В настоящее время нет оформленных заказов</h2></div>
                     </div> :
                     <div className={s.page}>
-                        {requests
-                            .map((request) => (
-                                <RequestAdminCard
-                                    key={request.id}
-                                    request={request} />
+                        {orders
+                            .map((order) => (
+                                <OrderAdminCard
+                                    key={order.id}
+                                    order={order} />
                             ))
                         }
                     </div>
