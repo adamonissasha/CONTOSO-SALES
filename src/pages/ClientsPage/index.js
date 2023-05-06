@@ -55,7 +55,11 @@ export default function ClientsPage() {
                             <h2>Рассылка предложений клиентам</h2>
                         </button>
                     }
-                    <input value={findValue} onChange={(obj) => setFindValue(obj.target.value.toLowerCase())}></input>
+                    <div className={s.search}>
+                        <img src="../../images/search.png" alt="search" />
+                        <h3>Поиск</h3>
+                        <input className={s.inp} value={findValue} onChange={(obj) => setFindValue(obj.target.value.toLowerCase())}></input>
+                    </div>
                     <div className={s.tableHeader}>
                         <h2 style={{ textAlign: "center", width: "8%" }}>№</h2>
                         <h2 style={{ textAlign: "center", width: "15%" }}>Имя</h2>
