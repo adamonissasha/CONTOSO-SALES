@@ -9,11 +9,16 @@ import RequestService from '../../services/RequestService';
 export default function RequestManagerPage({ currentUser }) {
     const [isNewRequestButtonActive, setNewRequestButtonActive] = useState(false);
     const [requests, setRequests] = useState([]);
+    const [selectedStatus, setSelectedStatus] = useState("");
 
     React.useEffect(() => {
         RequestService.getByManagerId(currentUser.id)
             .then(({ data }) => setRequests(data));
     }, [currentUser.id]);
+
+    const filteredRequests = requests.filter((request) =>
+        (request.status === selectedStatus || selectedStatus === "")
+    );
 
     return (
         <div>
@@ -31,7 +36,12 @@ export default function RequestManagerPage({ currentUser }) {
                             <h2>Оформить новую заявку</h2>
                         </button>
                     }
-                    {requests
+                    <select value={selectedStatus} onChange={(obj) => setSelectedStatus(obj.target.value)}>
+                        <option value="">Все</option>
+                        <option value="Отклонена">Отклонённые</option>
+                        <option value="Оформлена">Оформленные</option>
+                    </select>
+                    {filteredRequests
                         .map((request) => (
                             <RequestManagerCard
                                 key={request.id}

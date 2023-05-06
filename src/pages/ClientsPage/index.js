@@ -11,11 +11,18 @@ export default function ClientsPage() {
     const [isNewClientButtonActive, setNewClientButtonActive] = useState(false);
     const [isSendMessageButtonActive, setSendMessageButtonActive] = useState(false);
     const [clients, setClients] = useState([]);
+    const [findValue, setFindValue] = useState("");
 
     React.useEffect(() => {
         ClientService.getAll()
             .then(({ data }) => setClients(data));
     }, []);
+
+    const filteredClients = clients.filter((client) =>
+    (client.name.toLowerCase().includes(findValue) ||
+        client.email.toLowerCase().includes(findValue) ||
+        client.phoneNumber.toLowerCase().includes(findValue))
+    );
 
     return (
         <div>
@@ -48,6 +55,7 @@ export default function ClientsPage() {
                             <h2>Рассылка предложений клиентам</h2>
                         </button>
                     }
+                    <input value={findValue} onChange={(obj) => setFindValue(obj.target.value.toLowerCase())}></input>
                     <div className={s.tableHeader}>
                         <h2 style={{ textAlign: "center", width: "8%" }}>№</h2>
                         <h2 style={{ textAlign: "center", width: "15%" }}>Имя</h2>
@@ -55,9 +63,9 @@ export default function ClientsPage() {
                         <h2 style={{ textAlign: "center", width: "15%" }}>Номер телефона</h2>
                         <h2 style={{ textAlign: "center", width: "20%" }}>Адрес</h2>
                         <h2 style={{ textAlign: "center", width: "10% " }}>Скидка</h2>
-                        <h2 style={{ textAlign: "center", width: "10% " }}></h2>
+                        <h2 style={{ textAlign: "center", width: "10% " }}> </h2>
                     </div>
-                    {clients
+                    {filteredClients
                         .map((client) => (
                             <ClientCard
                                 key={client.id}

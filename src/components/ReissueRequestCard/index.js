@@ -11,7 +11,7 @@ export default function ReissueRequestCard({ setActive, request }) {
     const [products, setProducts] = useState([]);
     const [requestProducts, setRequestProducts] = useState([]);
     const [userId] = useState(JSON.parse(localStorage.getItem("user")).id);
-    const [date, setDate] = useState(request.dateTime.split(".").reverse().join("-"));
+    const [date, setDate] = useState(request.dateOfDelivery.split(".").reverse().join("-"));
     const [note, setNote] = useState(request.note);
     const [paymentMethod, setPaymentMethod] = useState(request.paymentMethod === "Карта" ? "CARD" : "CASH");
 
@@ -56,6 +56,17 @@ export default function ReissueRequestCard({ setActive, request }) {
         return true;
     };
 
+    const isThereAllNeededProducts = () => {
+        for (var i = 0; i < requestProducts.length; i++) {
+            if (JSON.parse(requestProducts[i].product).amount - JSON.parse(requestProducts[i].product).reservedAmount < JSON.parse(requestProducts[i].amount)) {
+                return false;
+            }
+        }
+        return true;
+    };
+
+    console.log(isThereAllNeededProducts());
+
     const onEditRequest = (e) => {
         e.preventDefault();
         if (!isAllProductsSelected()) {
@@ -65,6 +76,12 @@ export default function ReissueRequestCard({ setActive, request }) {
             return;
         }
 
+        if (!isThereAllNeededProducts()) {
+            setTitle("Ошибка");
+            setNotificationText("Недостаточно некоторых товаров для оформления заявки!");
+            setNotificationActive(true);
+            return;
+        }
         const requestLists = requestProducts.map(req => ({
             productId: JSON.parse(req.product).id,
             amount: req.amount
