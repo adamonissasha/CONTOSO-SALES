@@ -14,8 +14,8 @@ export default function OrderAdminCard({ order }) {
     const [isCardOpen, setCardOpen] = useState(false);
     const [message, setMessage] = useState("");
 
-    const onCancelOrder = () => {
-        OrderService.cancel({ orderId: order.id, message })
+    const onRejectOrder = () => {
+        OrderService.reject({ orderId: order.id, message })
             .then(() => {
                 window.location.reload();
             })
@@ -98,9 +98,9 @@ export default function OrderAdminCard({ order }) {
                             <div className={s.buttons}>
                                 <button className={s.but} onClick={() => {
                                     setAgreeWithMessageWindowActive(true);
-                                    setAgreeText("Вы уверены, что хотите отменить этот заказ? Оставьте сообщение с причиной отмены.");
-                                    setAgreeTitle("Отмена заказа");
-                                }}>Отменить заказ</button>
+                                    setAgreeText("Вы уверены, что хотите отклонить этот заказ? Оставьте сообщение с причиной.");
+                                    setAgreeTitle("Отклонение заказа");
+                                }}>Отклонить заказ</button>
                             </div>
                             <button className={s.aarrowButton} onClick={() => setCardOpen(false)} ><img className={s.arrow} src="..\..\images\arrow-top.svg" alt="top-arrow" /></button>
                         </div> :
@@ -109,7 +109,7 @@ export default function OrderAdminCard({ order }) {
                 {isAgreeWithMessageWindowActive &&
                     <AgreeWithMessageWindow
                         setActive={setAgreeWithMessageWindowActive}
-                        fun={onCancelOrder}
+                        fun={onRejectOrder}
                         title={agreeTitle}
                         text={agreeText}
                         setMessage={setMessage} />}

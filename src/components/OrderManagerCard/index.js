@@ -47,11 +47,11 @@ export default function OrderManagerCard({ order }) {
                         <div className={s.column}>
                             <div className={s.row}>
                                 <h3 style={{ width: "180px" }}>Дата оформления: </h3>
-                                <h2 style={{ width: "180px" }}>{order.dateOfCreate}</h2>
+                                <h2 style={{ width: "180px" }}>{order.dateOfCreate.split("-").reverse().join(".")}</h2>
                             </div>
                             <div className={s.row}>
                                 <h3 style={{ width: "180px" }}>Дата доставки: </h3>
-                                <h2 style={{ width: "180px" }}>{order.dateOfDelivery}</h2>
+                                <h2 style={{ width: "180px" }}>{order.dateOfDelivery.split("-").reverse().join(".")}</h2>
                             </div>
                         </div>
                         <div className={s.column}>
