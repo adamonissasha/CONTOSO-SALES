@@ -10,6 +10,7 @@ import RequestManagerPage from './pages/RequestsManagerPage';
 import RequestAdminPage from './pages/RequestsAdminPage';
 import OrdersAdminPage from './pages/OrdersAdminPage';
 import OrdersManagerPage from './pages/OrdersManagerPage';
+import StatisticPage from './pages/StatisticPage';
 
 function App() {
   const [user, setUser] = React.useState(JSON.parse(localStorage.getItem("user")));
@@ -27,9 +28,10 @@ function App() {
         {localStorage.getItem("user") && <Route path="/products" element={<ProductsPage />} />}
         {localStorage.getItem("user") && <Route path="/clients" element={<ClientsPage />} />}
         {localStorage.getItem("user") && <Route path="/manager/requests" element={<RequestManagerPage currentUser={user} />} />}
-        {localStorage.getItem("user") && <Route path="/admin/requests" element={<RequestAdminPage currentUser={user} />} />}
-        {localStorage.getItem("user") && <Route path="/manager/orders" element={<OrdersManagerPage />} />}
+        {localStorage.getItem("user") && <Route path="/admin/requests" element={<RequestAdminPage />} />}
+        {localStorage.getItem("user") && <Route path="/manager/orders" element={<OrdersManagerPage currentUser={user} />} />}
         {localStorage.getItem("user") && <Route path="/admin/orders" element={<OrdersAdminPage />} />}
+        {localStorage.getItem("user") && <Route path="/admin/statistic" element={<StatisticPage />} />}
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </div>
