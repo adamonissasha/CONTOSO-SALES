@@ -40,8 +40,8 @@ export default function OrderManagerCard({ order }) {
                                 <h2 style={{ width: "250px" }}>{order.clientEmail}</h2>
                             </div>
                             <div className={s.row}>
-                                <h3 style={{ width: "110px" }}>Менеджер: </h3>
-                                <h2 style={{ width: "250px" }}>{order.userFullName}</h2>
+                                <h3 style={{ width: "107px" }}>Статус: </h3>
+                                <h2 style={{ width: "200px" }}>{order.status}</h2>
                             </div>
                         </div>
                         <div className={s.column}>
@@ -60,8 +60,6 @@ export default function OrderManagerCard({ order }) {
                                 <h2 style={{ width: "200px" }}>{order.finalPrice} бел.руб.</h2>
                             </div>
                             <div className={s.row}>
-                                <h3 style={{ width: "80px" }}>Статус: </h3>
-                                <h2 style={{ width: "200px" }}>{order.status}</h2>
                             </div>
                         </div>
                     </div>
@@ -89,7 +87,7 @@ export default function OrderManagerCard({ order }) {
                             <div className={s.notePayment}>
                                 <div className={s.row}>
                                     <h3 style={{ width: "150px" }}>Примечание: </h3>
-                                    <h2 style={{ width: "800px" }}>{order.note}</h2>
+                                    <h2 style={{ width: "800px" }}>{order.note === "" ? "-" : order.note}</h2>
                                 </div> <div className={s.row}>
                                     <h3 style={{ width: "150px" }}>Способ оплаты: </h3>
                                     <h2 style={{ width: "250px" }}>{order.paymentMethod}</h2>

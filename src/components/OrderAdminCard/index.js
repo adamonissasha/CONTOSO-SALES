@@ -88,7 +88,7 @@ export default function OrderAdminCard({ order }) {
                             <div className={s.notePayment}>
                                 <div className={s.row}>
                                     <h3 style={{ width: "150px" }}>Примечание: </h3>
-                                    <h2 style={{ width: "800px" }}>{order.note}</h2>
+                                    <h2 style={{ width: "800px" }}>{order.note === "" ? "-" : order.note}</h2>
                                 </div> <div className={s.row}>
                                     <h3 style={{ width: "150px" }}>Способ оплаты: </h3>
                                     <h2 style={{ width: "250px" }}>{order.paymentMethod}</h2>
