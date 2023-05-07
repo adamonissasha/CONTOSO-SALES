@@ -6,8 +6,17 @@ class OrderService {
         return axios.get(url + "/orders");
     }
 
-    cancel(data) {
+    getAllById(id) {
+        return axios.get(url + "/orders/" + id);
+    }
+
+    reject(data) {
         return axios.put(url + "/admin/order", data);
+    }
+
+    changeStatus(id, status) {
+        console.log(id + status);
+        return axios.put(url + "/orders/" + id + "/" + status);
     }
 }
 

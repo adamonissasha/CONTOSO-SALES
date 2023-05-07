@@ -1,10 +1,11 @@
 import s from './orderManagerCard.module.scss';
 import { useState } from 'react';
-import AgreeWithMessageWindow from '../../modalWindow/AgreeWithMessageModalWindow';
 import Notification from '../../modalWindow/Notification';
+import AgreeWindow from '../../modalWindow/AgreeModalWindow';
+import OrderService from '../../services/OrderService';
 
 export default function OrderManagerCard({ order }) {
-    const [isAgreeWithMessageWindowActive, setAgreeWithMessageWindowActive] = useState(false);
+    const [isAgreeWindowActive, setAgreeWindowActive] = useState(false);
     const [agreeText, setAgreeText] = useState("");
     const [agreeTitle, setAgreeTitle] = useState("");
     const [isNotificationActive, setNotificationActive] = useState(false);
@@ -13,26 +14,19 @@ export default function OrderManagerCard({ order }) {
     const [isCardOpen, setCardOpen] = useState(false);
     const [status, setStatus] = useState("");
 
-    // const getOrderSum = () => {
-    //     var sum = 0;
-    //     for (var i = 0; i < order.rlist.length; i++) {
-    //         sum += order.rlist[i].clientAmount * order.rlist[i].pricePerItem;
-    //     }
-    //     return sum;
-    // }
-
-    // const onAction = (status) => {
-    //     RequestService.changeStatus(request.requestId, status)
-    //         .then(() => {
-    //             window.location.reload();
-    //         })
-    //         .catch(function (error) {
-    //             setAgreeWindowActive(false);
-    //             setNotificationText(error.response.data.message);
-    //             setNotificationActive(true);
-    //             setTitle("Ошибка");
-    //         });
-    // }
+    const onAction = (status) => {
+        OrderService.changeStatus(order.id, status)
+            .then(() => {
+                window.location.reload();
+            })
+            .catch(function (error) {
+                alert(error);
+                setAgreeWindowActive(false);
+                setNotificationText(error.response.data.message);
+                setNotificationActive(true);
+                setTitle("Ошибка");
+            });
+    }
 
     return (
         <div className={s.full}>
@@ -53,11 +47,11 @@ export default function OrderManagerCard({ order }) {
                         <div className={s.column}>
                             <div className={s.row}>
                                 <h3 style={{ width: "180px" }}>Дата оформления: </h3>
-                                <h2 style={{ width: "180px" }}>{order.dateOfCreate}</h2>
+                                <h2 style={{ width: "180px" }}>{order.dateOfCreate.split("-").reverse().join(".")}</h2>
                             </div>
                             <div className={s.row}>
                                 <h3 style={{ width: "180px" }}>Дата доставки: </h3>
-                                <h2 style={{ width: "180px" }}>{order.dateOfDelivery}</h2>
+                                <h2 style={{ width: "180px" }}>{order.dateOfDelivery.split("-").reverse().join(".")}</h2>
                             </div>
                         </div>
                         <div className={s.column}>
@@ -103,11 +97,16 @@ export default function OrderManagerCard({ order }) {
                                 </div>
                             </div>
                             <div className={s.buttons}>
-                                <button className={s.but}>Закрыть заказ</button>
+                                <button className={s.but} onClick={() => {
+                                    setStatus("COMPLETED")
+                                    setAgreeWindowActive(true);
+                                    setAgreeText("Вы уверены, что хотите подтвердить этот заказ?");
+                                    setAgreeTitle("Подтверждение заказа");
+                                }}>Закрыть заказ</button>
                                 <button className={s.but} onClick={() => {
                                     setStatus("CANCELLED")
-                                    setAgreeWithMessageWindowActive(true);
-                                    setAgreeText("Вы уверены, что хотите отменить этот заказ? Оставьте сообщение с причиной отмены.");
+                                    setAgreeWindowActive(true);
+                                    setAgreeText("Вы уверены, что хотите отменить этот заказ?");
                                     setAgreeTitle("Отмена заказа");
                                 }}>Отменить заказ</button>
                             </div>
@@ -115,16 +114,17 @@ export default function OrderManagerCard({ order }) {
                         </div> :
                         <button className={s.aarrowButton} onClick={() => setCardOpen(true)} ><img className={s.arrow} src="..\..\images\arrow-bottom.svg" alt="bottom-arrow" /></button>}
                 </div>
-                {isAgreeWithMessageWindowActive &&
-                    <AgreeWithMessageWindow
-                        setActive={setAgreeWithMessageWindowActive}
+                {isAgreeWindowActive &&
+                    <AgreeWindow
+                        setActive={setAgreeWindowActive}
+                        fun={() => onAction(status)}
                         title={agreeTitle}
                         text={agreeText} />}
-                {/* {isNotificationActive &&
+                {isNotificationActive &&
                     <Notification
                         title={title}
                         text={notificationText}
-                        setActive={setNotificationActive} />} */}
+                        setActive={setNotificationActive} />}
             </div >
         </div>
     );
