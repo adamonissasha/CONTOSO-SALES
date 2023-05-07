@@ -74,7 +74,6 @@ export default function OrderManagerCard({ order }) {
                                 <h3 style={{ textAlign: "center", width: "15%" }}>Количество, шт.</h3>
                                 <h3 style={{ textAlign: "center", width: "15%" }}>Цена за шт, руб.</h3>
                                 <h3 style={{ textAlign: "center", width: "15%" }}>Итоговая цена, руб.</h3>
-
                             </div>
                             {order.rList
                                 .map((product) => (
@@ -96,20 +95,21 @@ export default function OrderManagerCard({ order }) {
                                     <h2 style={{ width: "250px" }}>{order.paymentMethod}</h2>
                                 </div>
                             </div>
-                            <div className={s.buttons}>
-                                <button className={s.but} onClick={() => {
-                                    setStatus("COMPLETED")
-                                    setAgreeWindowActive(true);
-                                    setAgreeText("Вы уверены, что хотите подтвердить этот заказ?");
-                                    setAgreeTitle("Подтверждение заказа");
-                                }}>Закрыть заказ</button>
-                                <button className={s.but} onClick={() => {
-                                    setStatus("CANCELLED")
-                                    setAgreeWindowActive(true);
-                                    setAgreeText("Вы уверены, что хотите отменить этот заказ?");
-                                    setAgreeTitle("Отмена заказа");
-                                }}>Отменить заказ</button>
-                            </div>
+                            {order.status === "Оформлен" &&
+                                <div className={s.buttons}>
+                                    <button className={s.but} onClick={() => {
+                                        setStatus("COMPLETED")
+                                        setAgreeWindowActive(true);
+                                        setAgreeText("Вы уверены, что хотите подтвердить этот заказ?");
+                                        setAgreeTitle("Подтверждение заказа");
+                                    }}>Закрыть заказ</button>
+                                    <button className={s.but} onClick={() => {
+                                        setStatus("CANCELLED")
+                                        setAgreeWindowActive(true);
+                                        setAgreeText("Вы уверены, что хотите отменить этот заказ?");
+                                        setAgreeTitle("Отмена заказа");
+                                    }}>Отменить заказ</button>
+                                </div>}
                             <button className={s.aarrowButton} onClick={() => setCardOpen(false)} ><img className={s.arrow} src="..\..\images\arrow-top.svg" alt="top-arrow" /></button>
                         </div> :
                         <button className={s.aarrowButton} onClick={() => setCardOpen(true)} ><img className={s.arrow} src="..\..\images\arrow-bottom.svg" alt="bottom-arrow" /></button>}

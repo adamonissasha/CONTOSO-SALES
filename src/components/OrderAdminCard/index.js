@@ -73,7 +73,6 @@ export default function OrderAdminCard({ order }) {
                                 <h3 style={{ textAlign: "center", width: "15%" }}>Количество, шт.</h3>
                                 <h3 style={{ textAlign: "center", width: "15%" }}>Цена за шт, руб.</h3>
                                 <h3 style={{ textAlign: "center", width: "15%" }}>Итоговая цена, руб.</h3>
-
                             </div>
                             {order.rList
                                 .map((product) => (
@@ -95,13 +94,15 @@ export default function OrderAdminCard({ order }) {
                                     <h2 style={{ width: "250px" }}>{order.paymentMethod}</h2>
                                 </div>
                             </div>
-                            <div className={s.buttons}>
-                                <button className={s.but} onClick={() => {
-                                    setAgreeWithMessageWindowActive(true);
-                                    setAgreeText("Вы уверены, что хотите отклонить этот заказ? Оставьте сообщение с причиной.");
-                                    setAgreeTitle("Отклонение заказа");
-                                }}>Отклонить заказ</button>
-                            </div>
+                            {order.status === "Оформлен" &&
+                                <div className={s.buttons}>
+                                    <button className={s.but} onClick={() => {
+                                        setAgreeWithMessageWindowActive(true);
+                                        setAgreeText("Вы уверены, что хотите отклонить этот заказ? Оставьте сообщение с причиной.");
+                                        setAgreeTitle("Отклонение заказа");
+                                    }}>Отклонить заказ</button>
+                                </div>
+                            }
                             <button className={s.aarrowButton} onClick={() => setCardOpen(false)} ><img className={s.arrow} src="..\..\images\arrow-top.svg" alt="top-arrow" /></button>
                         </div> :
                         <button className={s.aarrowButton} onClick={() => setCardOpen(true)} ><img className={s.arrow} src="..\..\images\arrow-bottom.svg" alt="bottom-arrow" /></button>}
