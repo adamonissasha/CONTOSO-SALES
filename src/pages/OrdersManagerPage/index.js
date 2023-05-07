@@ -35,20 +35,32 @@ export default function OrdersManagerPage() {
                         <div className={s.no}><h2>В настоящее время нет оформленных заказов</h2></div>
                     </div> :
                     <div className={s.page}>
-                        <input className={s.inp} value={findValue} onChange={(obj) => setFindValue(obj.target.value.toLowerCase())}></input>
-                        <select value={selectedStatus} onChange={(obj) => setSelectedStatus(obj.target.value)}>
-                            <option value="">Все</option>
-                            <option value="Отклонен">Отклонённые</option>
-                            <option value="Оформлен">Оформленные</option>
-                            <option value="Отменен">Отменённые</option>
-                            <option value="Выполнен">Выполненные</option>
-                        </select>
-                        <input
-                            value={selectedDate}
-                            onChange={(e) => setSelectedDate(e.target.value)}
-                            type="date"
-                            className={s.inp}
-                            required />
+                        <div className={s.filters}>
+                            <div className={s.search}>
+                                <img src="../../images/search.png" alt="search" />
+                                <h3>Поиск</h3>
+                                <input className={s.inp} value={findValue} onChange={(obj) => setFindValue(obj.target.value.toLowerCase())}></input>
+                            </div>
+                            <div className={s.selStatus}>
+                                <h3>Статус</h3>
+                                <select className={s.sel} value={selectedStatus} onChange={(obj) => setSelectedStatus(obj.target.value)}>
+                                    <option value="">Все</option>
+                                    <option value="Отклонен">Отклонённые</option>
+                                    <option value="Оформлен">Оформленные</option>
+                                    <option value="Отменен">Отменённые</option>
+                                    <option value="Выполнен">Выполненные</option>
+                                </select>
+                            </div>
+                            <div className={s.dateOfCreation}>
+                                <h3>Дата создания</h3>
+                                <input
+                                    className={s.date}
+                                    value={selectedDate}
+                                    onChange={(e) => setSelectedDate(e.target.value)}
+                                    type="date"
+                                    required />
+                            </div>
+                        </div>
                         {filteredOrders
                             .map((order) => (
                                 <OrderManagerCard
