@@ -16,13 +16,14 @@ export default function Menu({ page }) {
                     <img className={s.arrow} src='..\..\images\arrow.svg' alt="arrow" />
                 </div>
             </a>
-            <a href='/products' style={{ textDecoration: 'none' }}><div className={page === "products" ? s.choosen : s.unchoosen}><h2>Товары</h2></div></a>
-            <a href='/manager/requests' style={{ textDecoration: 'none' }}><div className={page === "manager-requests" ? s.choosen : s.unchoosen}><h2>Заявки MANAGER</h2></div></a>
-            <a href='/admin/requests' style={{ textDecoration: 'none' }}><div className={page === "admin-requests" ? s.choosen : s.unchoosen}><h2>Заявки ADMIN</h2></div></a>
-            <a href='/clients' style={{ textDecoration: 'none' }}><div className={page === "clients" ? s.choosen : s.unchoosen}><h2>Клиенты</h2></div></a>
-            <a href='/manager/orders' style={{ textDecoration: 'none' }}><div className={page === "manager-orders" ? s.choosen : s.unchoosen}><h2>Заказы MANAGER</h2></div></a>
-            <a href='/admin/orders' style={{ textDecoration: 'none' }}><div className={page === "admin-orders" ? s.choosen : s.unchoosen}><h2>Заказы ADMIN</h2></div></a>
-            <a href='/managers' style={{ textDecoration: 'none' }}><div className={page === "managers" ? s.choosen : s.unchoosen}><h2>Менеджеры ADMIN</h2></div></a>
+            {JSON.parse(localStorage.getItem("user")).role === "Менеджер отдела продаж" && <a href='/products' style={{ textDecoration: 'none' }}><div className={page === "products" ? s.choosen : s.unchoosen}><h2>Товары</h2></div></a>}
+            {JSON.parse(localStorage.getItem("user")).role === "Менеджер отдела продаж" && <a href='/manager/requests' style={{ textDecoration: 'none' }}><div className={page === "manager-requests" ? s.choosen : s.unchoosen}><h2>Заявки</h2></div></a>}
+            {JSON.parse(localStorage.getItem("user")).role === "Руководитель отдела продаж" && <a href='/admin/requests' style={{ textDecoration: 'none' }}><div className={page === "admin-requests" ? s.choosen : s.unchoosen}><h2>Заявки</h2></div></a>}
+            {JSON.parse(localStorage.getItem("user")).role === "Менеджер отдела продаж" && <a href='/clients' style={{ textDecoration: 'none' }}><div className={page === "clients" ? s.choosen : s.unchoosen}><h2>Клиенты</h2></div></a>}
+            {JSON.parse(localStorage.getItem("user")).role === "Менеджер отдела продаж" && <a href='/manager/orders' style={{ textDecoration: 'none' }}><div className={page === "manager-orders" ? s.choosen : s.unchoosen}><h2>Заказы</h2></div></a>}
+            {JSON.parse(localStorage.getItem("user")).role === "Руководитель отдела продаж" && <a href='/admin/orders' style={{ textDecoration: 'none' }}><div className={page === "admin-orders" ? s.choosen : s.unchoosen}><h2>Заказы</h2></div></a>}
+            {JSON.parse(localStorage.getItem("user")).role === "Руководитель отдела продаж" && <a href='/managers' style={{ textDecoration: 'none' }}><div className={page === "managers" ? s.choosen : s.unchoosen}><h2>Менеджеры</h2></div></a>}
+            {JSON.parse(localStorage.getItem("user")).role === "Руководитель отдела продаж" && <a href='/admin/statistic' style={{ textDecoration: 'none' }}><div className={page === "statistic" ? s.choosen : s.unchoosen}><h2>Статистика</h2></div></a>}
         </div>
     );
 }

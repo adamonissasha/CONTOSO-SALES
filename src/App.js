@@ -24,14 +24,14 @@ function App() {
       <Routes>
         <Route path="/" element={<LoginPage setUser={setUser} />} />
         {localStorage.getItem("user") && <Route path="/account" element={<AccountPage currentUser={user} />} />}
-        {localStorage.getItem("user") && <Route path="/managers" element={<ManagersPage />} />}
-        {localStorage.getItem("user") && <Route path="/products" element={<ProductsPage />} />}
-        {localStorage.getItem("user") && <Route path="/clients" element={<ClientsPage />} />}
-        {localStorage.getItem("user") && <Route path="/manager/requests" element={<RequestManagerPage currentUser={user} />} />}
-        {localStorage.getItem("user") && <Route path="/admin/requests" element={<RequestAdminPage />} />}
-        {localStorage.getItem("user") && <Route path="/manager/orders" element={<OrdersManagerPage currentUser={user} />} />}
-        {localStorage.getItem("user") && <Route path="/admin/orders" element={<OrdersAdminPage />} />}
-        {localStorage.getItem("user") && <Route path="/admin/statistic" element={<StatisticPage />} />}
+        {localStorage.getItem("user") && user.role === "Руководитель отдела продаж" && <Route path="/managers" element={<ManagersPage />} />}
+        {localStorage.getItem("user") && user.role === "Менеджер отдела продаж" && <Route path="/products" element={<ProductsPage />} />}
+        {localStorage.getItem("user") && user.role === "Менеджер отдела продаж" && <Route path="/clients" element={<ClientsPage />} />}
+        {localStorage.getItem("user") && user.role === "Менеджер отдела продаж" && <Route path="/manager/requests" element={<RequestManagerPage currentUser={user} />} />}
+        {localStorage.getItem("user") && user.role === "Руководитель отдела продаж" && <Route path="/admin/requests" element={<RequestAdminPage />} />}
+        {localStorage.getItem("user") && user.role === "Менеджер отдела продаж" && <Route path="/manager/orders" element={<OrdersManagerPage currentUser={user} />} />}
+        {localStorage.getItem("user") && user.role === "Руководитель отдела продаж" && <Route path="/admin/orders" element={<OrdersAdminPage />} />}
+        {localStorage.getItem("user") && user.role === "Руководитель отдела продаж" && <Route path="/admin/statistic" element={<StatisticPage />} />}
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </div>
