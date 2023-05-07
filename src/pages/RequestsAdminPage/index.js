@@ -5,7 +5,7 @@ import Menu from '../../components/Menu';
 import RequestAdminCard from '../../components/RequestAdminCard';
 import RequestService from '../../services/RequestService';
 
-export default function RequestAdminPage({ currentUser }) {
+export default function RequestAdminPage() {
     const [requests, setRequests] = useState([]);
 
     React.useEffect(() => {

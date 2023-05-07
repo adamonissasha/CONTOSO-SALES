@@ -14,7 +14,13 @@ export default function NewRequestCard({ setActive }) {
     const [requestProducts, setRequestProducts] = useState([{ product: JSON.stringify({}), amount: 1 }])
     const [clientId, setClientId] = useState(0);
     const [userId] = useState(JSON.parse(localStorage.getItem("user")).id);
-    const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
+    const [date, setDate] = useState(() => {
+        const now = new Date();
+        now.setHours(now.getHours() + 3);
+        now.setDate(now.getDate() + 7);
+        return now.toISOString().slice(0, 10);
+    });
+
     const [note, setNote] = useState("");
     const [paymentMethod, setPaymentMethod] = useState("CARD");
 

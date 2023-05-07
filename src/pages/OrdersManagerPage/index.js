@@ -5,18 +5,18 @@ import Menu from '../../components/Menu';
 import OrderService from '../../services/OrderService';
 import OrderManagerCard from '../../components/OrderManagerCard';
 
-export default function OrdersManagerPage() {
+export default function OrdersManagerPage({ currentUser }) {
     const [orders, setOrders] = useState([]);
     const [selectedStatus, setSelectedStatus] = useState("");
     const [selectedDate, setSelectedDate] = useState("");
     const [findValue, setFindValue] = useState("");
 
     React.useEffect(() => {
-        OrderService.getAll()
+        OrderService.getAllById(currentUser.id)
             .then(({ data }) => {
                 setOrders(data);
             });
-    }, []);
+    }, [currentUser.id]);
 
     const filteredOrders = orders.filter((order) =>
         (order.status === selectedStatus || selectedStatus === "") &&
