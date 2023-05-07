@@ -11,8 +11,7 @@ export default function OrdersManagerPage() {
     React.useEffect(() => {
         OrderService.getAll()
             .then(({ data }) => {
-                setOrders(data)
-                console.log(data)
+                setOrders(data);
             });
     }, []);
 

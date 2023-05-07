@@ -9,6 +9,11 @@ class OrderService {
     cancel(data) {
         return axios.put(url + "/admin/order", data);
     }
+
+    changeStatus(id, status) {
+        console.log(id + status);
+        return axios.put(url + "/orders/" + id + "/" + status);
+    }
 }
 
 const orderService = new OrderService();
