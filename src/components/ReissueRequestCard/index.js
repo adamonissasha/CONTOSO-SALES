@@ -65,8 +65,6 @@ export default function ReissueRequestCard({ setActive, request }) {
         return true;
     };
 
-    console.log(isThereAllNeededProducts());
-
     const onEditRequest = (e) => {
         e.preventDefault();
         if (!isAllProductsSelected()) {
@@ -138,8 +136,7 @@ export default function ReissueRequestCard({ setActive, request }) {
                     </div>
                 </div>
                 {requestProducts.map((reqProduct, index) => (
-                    <div key={index} className={s.fields} style={JSON.parse(reqProduct.product).amount - JSON.parse(reqProduct.product).reservedAmount < JSON.parse(reqProduct.amount) ? { backgroundColor: "red" } : {}}>
-                        {console.log(JSON.parse(reqProduct.product).amount - JSON.parse(reqProduct.product).reservedAmount >= JSON.parse(reqProduct.amount))}
+                    <div key={index} className={s.fields} style={JSON.parse(reqProduct.product).amount - JSON.parse(reqProduct.product).reservedAmount < reqProduct.amount ? { backgroundColor: "red" } : {}}>
                         <div className={s.product}>
                             <select
                                 defaultValue={reqProduct.product}

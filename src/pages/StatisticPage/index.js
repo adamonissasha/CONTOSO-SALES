@@ -4,7 +4,7 @@ import Header from '../../components/Header';
 import Menu from '../../components/Menu';
 import StatisticService from '../../services/StatisticService';
 import Notification from '../../modalWindow/Notification';
-import { BarChart, Bar, CartesianGrid, XAxis, YAxis, PieChart, Pie, Tooltip, Cell, LineChart, ResponsiveContainer, Legend, Line } from 'recharts';
+import { BarChart, Bar, CartesianGrid, XAxis, YAxis, PieChart, Pie, Tooltip, Cell, LineChart, Line } from 'recharts';
 
 export default function StatisticPage() {
     const [idx, setIdx] = useState(0)
@@ -115,8 +115,6 @@ export default function StatisticPage() {
         setClientStatisticOpened(false)
         setProductStatisticOpened(false)
     }
-
-    const pages = [];
 
     return (
         <div>
