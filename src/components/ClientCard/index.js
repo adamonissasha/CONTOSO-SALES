@@ -24,7 +24,7 @@ export default function ClientCard({ client }) {
                 <h2 style={{ textAlign: "center", width: "20%" }}>{client.email}</h2>
                 <h2 style={{ textAlign: "center", width: "15%" }}>{client.phoneNumber}</h2>
                 <h2 style={{ textAlign: "center", width: "20%" }}>{client.address}</h2>
-                <h2 style={{ textAlign: "center", width: "10%" }}>3%</h2>
+                <h2 style={{ textAlign: "center", width: "10%" }}>{client.discount}%</h2>
                 <div style={{ textAlign: "center", width: "10%", display: "flex", alignItems: "center" }}>
                     <img onClick={() => { setUpdateClientButtonActive(true); setSendMessageButtonActive(false) }} className={s.edit} src=".\images\edit.png" alt="edit" />
                     <img onClick={() => { setSendMessageButtonActive(true); setUpdateClientButtonActive(false) }} className={s.send} src=".\images\letter.png" alt="send" />

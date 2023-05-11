@@ -96,7 +96,7 @@ export default function RequestAdminCard({ request }) {
                             <div className={s.notePayment}>
                                 <div className={s.row}>
                                     <h3 style={{ width: "150px" }}>Примечание: </h3>
-                                    <h2 style={{ width: "800px" }}>{request.note}</h2>
+                                    <h2 style={{ width: "800px" }}>{request.note === "" ? "-" : request.note}</h2>
                                 </div> <div className={s.row}>
                                     <h3 style={{ width: "150px" }}>Способ оплаты: </h3>
                                     <h2 style={{ width: "250px" }}>{request.paymentMethod}</h2>

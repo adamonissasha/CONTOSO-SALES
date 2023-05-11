@@ -4,6 +4,7 @@
     display: flex;
     justify-content: space-between;
     position: fixed;
+    z-index: 1;
 
     .label {
         background-color: #7E71A3;

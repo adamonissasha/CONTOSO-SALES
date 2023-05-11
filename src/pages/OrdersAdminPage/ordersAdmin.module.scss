@@ -8,6 +8,60 @@
         flex-direction: column;
         align-items: center;
 
+        .filters {
+            width: 95%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+
+            .search {
+                width: 35%;
+                display: flex;
+                align-items: center;
+
+                img {
+                    width: 20px;
+                    height: 20px;
+                    margin-right: 10px;
+                }
+
+                .inp {
+                    width: 100%;
+                    height: 35px;
+                    padding: 0px 20px;
+                }
+            }
+
+            h3 {
+                font-weight: 200;
+                font-size: 24px;
+                margin: 0px 15px 0px 0px;
+            }
+
+            .selStatus {
+                width: 28%;
+                display: flex;
+
+                .sel {
+                    width: 100%;
+                    height: 37px;
+                    padding: 0px 20px;
+                }
+            }
+
+            .dateOfCreation {
+                width: 32%;
+                display: flex;
+
+                .date {
+                    width: 40%;
+                    height: 35px;
+                    padding: 0px 20px;
+                }
+            }
+        }
+
         .no {
             width: 95%;
             display: flex;
