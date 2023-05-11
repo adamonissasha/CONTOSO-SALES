@@ -8,6 +8,7 @@ import ProductService from '../../services/ProductService';
 
 export default function ProductsPage() {
     const [isNewProductButtonActive, setNewProductButtonActive] = useState(false);
+    const [isNewDeliveryButtonActive, setNewDeliveryButtonActive] = useState(false);
     const [products, setProducts] = useState([]);
     const [findValue, setFindValue] = useState("");
 
@@ -38,6 +39,32 @@ export default function ProductsPage() {
                             onClick={() => setNewProductButtonActive(true)}>
                             <img className={s.plus} src="./images/add.png" alt="add" />
                             <h2>Добавить новый товар</h2>
+                        </button>
+                    }
+                    {isNewDeliveryButtonActive ?
+                        <div className={s.card}>
+                            <div className={s.header}>
+                                <h2 className={s.label}>Новая поставка товаров</h2>
+                                <img onClick={() => setNewDeliveryButtonActive(false)} src=".\images\delete.png" alt="close" />
+                            </div>
+                            <form className={s.fields}>
+                                <div className={s.column}>
+                                    <p>Загрузите файл</p>
+                                    <input
+                                        type='file'
+                                        className={s.inp}
+                                        required />
+                                </div>
+                                <div className={s.column}>
+                                    <button className={s.but}>Добавить</button>
+                                </div>
+                            </form>
+                        </div> :
+                        <button
+                            className={s.addNew}
+                            onClick={() => setNewDeliveryButtonActive(true)}>
+                            <img className={s.plus} src="./images/add.png" alt="add" />
+                            <h2>Новая поставка товаров</h2>
                         </button>
                     }
                     <div className={s.search}>
