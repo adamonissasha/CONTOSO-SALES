@@ -12,7 +12,7 @@ export default function NewRequestCard({ setActive }) {
     const [clients, setClients] = useState([]);
     const [products, setProducts] = useState([]);
     const [requestProducts, setRequestProducts] = useState([{ product: JSON.stringify({}), amount: 1 }])
-    const [clientId, setClientId] = useState(0);
+    const [currentClient, setCurrentClient] = useState([]);
     const [userId] = useState(JSON.parse(localStorage.getItem("user")).id);
     const [date, setDate] = useState(() => {
         const now = new Date();
@@ -67,7 +67,7 @@ export default function NewRequestCard({ setActive }) {
 
     const onAddNewRequest = (e) => {
         e.preventDefault();
-        if (clientId === 0) {
+        if (currentClient.id === 0) {
             setTitle("Ошибка");
             setNotificationText("Вы не можете сформировать заявку без заказчика!");
             setNotificationActive(true);
@@ -84,7 +84,7 @@ export default function NewRequestCard({ setActive }) {
             productId: JSON.parse(req.product).id,
             amount: req.amount
         }));
-        RequestService.addNew({ clientId, userId, dateOfDelivery: date.split("-").reverse().join("."), note, requestLists, paymentMethod }).then(() => {
+        RequestService.addNew({ clientId: currentClient.id, userId, dateOfDelivery: date.split("-").reverse().join("."), note, requestLists, paymentMethod }).then(() => {
             window.location.reload();
         }).catch(function (error) {
             setNotificationText(error.response.data.message);
@@ -112,11 +112,11 @@ export default function NewRequestCard({ setActive }) {
                     <div className={s.column}>
                         <p>Заказчик</p>
                         <select
-                            onChange={(e) => setClientId(e.target.value)}
+                            onChange={(e) => setCurrentClient(JSON.parse(e.target.value))}
                             className={s.sel}>
                             <option value="0">Выберите заказчика</option>
                             {clients.map((client) =>
-                                <option value={client.id} >{client.email}</option>
+                                <option value={JSON.stringify(client)} >{client.email}</option>
                             )}
                         </select>
                         <p>Продукты</p>
@@ -144,7 +144,6 @@ export default function NewRequestCard({ setActive }) {
                                     return <option value={JSON.stringify(product)}>{product.name + ", " + product.code}</option>
                                 })}
                             </select>
-
                         </div>
                         <div className={s.amount}>
                             <input
@@ -168,7 +167,13 @@ export default function NewRequestCard({ setActive }) {
                         <p>Примечание</p>
                         <input value={note} onChange={(e) => setNote(e.target.value)} className={s.inp} />
                         <div className={s.sum}>
-                            <h2>Итоговая сумма: </h2><h3>{getTotalSum()} руб.</h3>
+                            <h2>Сумма: </h2><h3>{getTotalSum()} руб.</h3>
+                        </div>
+                        <div className={s.sum}>
+                            <h2>Скидка: </h2><h3>{currentClient.discount}%</h3>
+                        </div>
+                        <div className={s.sum}>
+                            <h2>Итоговая сумма: </h2><h3>{getTotalSum() - getTotalSum() * currentClient.discount / 100} руб.</h3>
                         </div>
                     </div>
                     <div className={s.col}>
@@ -176,8 +181,8 @@ export default function NewRequestCard({ setActive }) {
                             <div className={s.payment}>
                                 <p>Способ оплаты</p>
                                 <select value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)}>
-                                    <option value="CARD">Карта</option>
-                                    <option value="CASH">Наличные</option>
+                                    <option value="CARD">По факту</option>
+                                    <option value="CASH">Авансовый</option>
                                 </select>
                             </div>
                             <button type='button' className={s.but} onClick={handleAddProduct}>Добавить товар</button>

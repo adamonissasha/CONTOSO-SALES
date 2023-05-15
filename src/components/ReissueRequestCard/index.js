@@ -13,7 +13,7 @@ export default function ReissueRequestCard({ setActive, request }) {
     const [userId] = useState(JSON.parse(localStorage.getItem("user")).id);
     const [date, setDate] = useState(request.dateOfDelivery.split(".").reverse().join("-"));
     const [note, setNote] = useState(request.note);
-    const [paymentMethod, setPaymentMethod] = useState(request.paymentMethod === "Карта" ? "CARD" : "CASH");
+    const [paymentMethod, setPaymentMethod] = useState(request.paymentMethod === "По факту" ? "CARD" : "CASH");
 
     const handleAddProduct = () => {
         setRequestProducts([...requestProducts, { product: JSON.stringify({}), amount: 1 }]);
@@ -186,8 +186,8 @@ export default function ReissueRequestCard({ setActive, request }) {
                             <div className={s.payment}>
                                 <p>Способ оплаты</p>
                                 <select value={paymentMethod} defaultValue={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)}>
-                                    <option value="CARD">Карта</option>
-                                    <option value="CASH">Наличные</option>
+                                    <option value="CARD">По факту</option>
+                                    <option value="CASH">Авансовый</option>
                                 </select>
                             </div>
                             <button type='button' className={s.but} onClick={handleAddProduct}>Добавить товар</button>

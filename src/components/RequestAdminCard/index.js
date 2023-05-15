@@ -64,7 +64,7 @@ export default function RequestAdminCard({ request }) {
                         <div className={s.column}>
                             <div className={s.row}>
                                 <h3 style={{ width: "80px" }}>Сумма: </h3>
-                                <h2 style={{ width: "200px" }}>{getRequestSum()} бел.руб.</h2>
+                                <h2 style={{ width: "200px" }}>{getRequestSum() - getRequestSum() * request.clientDiscount / 100} бел.руб.</h2>
                             </div>
                             <div className={s.row}>
                                 <h3 style={{ width: "80px" }}>Статус: </h3>
@@ -100,6 +100,15 @@ export default function RequestAdminCard({ request }) {
                                 </div> <div className={s.row}>
                                     <h3 style={{ width: "150px" }}>Способ оплаты: </h3>
                                     <h2 style={{ width: "250px" }}>{request.paymentMethod}</h2>
+                                </div>
+                                <div className={s.row}>
+                                    <h3 style={{ width: "150px" }}>Сумма: </h3><h2>{getRequestSum()} руб.</h2>
+                                </div>
+                                <div className={s.row}>
+                                    <h3 style={{ width: "150px" }}>Скидка: </h3><h2>{request.clientDiscount}%</h2>
+                                </div>
+                                <div className={s.row}>
+                                    <h3 style={{ width: "150px" }}>Итоговая сумма: </h3><h2>{getRequestSum() - getRequestSum() * request.clientDiscount / 100} руб.</h2>
                                 </div>
                             </div>
                             <div className={s.buttons}>

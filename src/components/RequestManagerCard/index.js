@@ -55,7 +55,7 @@ export default function RequestManagerCard({ request }) {
                         <div className={s.column}>
                             <div className={s.row}>
                                 <h3 style={{ width: "80px" }}>Сумма: </h3>
-                                <h2 style={{ width: "160px" }}>{getRequestSum()} бел.руб.</h2>
+                                <h2 style={{ width: "160px" }}>{getRequestSum() - getRequestSum() * request.clientDiscount / 100} бел.руб.</h2>
                             </div>
                             <div className={s.row} />
                         </div>
@@ -90,6 +90,15 @@ export default function RequestManagerCard({ request }) {
                                 </div> <div className={s.row}>
                                     <h3 style={{ width: "150px" }}>Способ оплаты: </h3>
                                     <h2 style={{ width: "250px" }}>{request.paymentMethod}</h2>
+                                </div>
+                                <div className={s.row}>
+                                    <h3 style={{ width: "150px" }}>Сумма: </h3><h2>{getRequestSum()} руб.</h2>
+                                </div>
+                                <div className={s.row}>
+                                    <h3 style={{ width: "150px" }}>Скидка: </h3><h2>{request.clientDiscount}%</h2>
+                                </div>
+                                <div className={s.row}>
+                                    <h3 style={{ width: "150px" }}>Итоговая сумма: </h3><h2>{getRequestSum() - getRequestSum() * request.clientDiscount / 100} руб.</h2>
                                 </div>
                             </div>
                             <button className={s.aarrowButton} onClick={() => setCardOpen(false)} ><img className={s.arrow} src="..\..\images\arrow-top.svg" alt="top-arrow" /></button>

@@ -13,7 +13,7 @@ export default function EditRequestCard({ setActive, request }) {
     const [userId] = useState(JSON.parse(localStorage.getItem("user")).id);
     const [date, setDate] = useState(request.dateOfDelivery.split(".").reverse().join("-"));
     const [note, setNote] = useState(request.note);
-    const [paymentMethod, setPaymentMethod] = useState(request.paymentMethod === "Карта" ? "CARD" : "CASH");
+    const [paymentMethod, setPaymentMethod] = useState(request.paymentMethod === "По факту" ? "CARD" : "CASH");
 
     const handleAddProduct = () => {
         setRequestProducts([...requestProducts, { product: JSON.stringify({}), amount: 1 }]);
@@ -160,14 +160,20 @@ export default function EditRequestCard({ setActive, request }) {
                         <div className={s.sum}>
                             <h2>Итоговая сумма: </h2><h3>{getTotalSum()} руб.</h3>
                         </div>
+                        <div className={s.sum}>
+                            <h2>Скидка: </h2><h3>{request.clientDiscount}%</h3>
+                        </div>
+                        <div className={s.sum}>
+                            <h2>Итоговая сумма: </h2><h3>{getTotalSum() - getTotalSum() * request.clientDiscount / 100} руб.</h3>
+                        </div>
                     </div>
                     <div className={s.col}>
                         <div className={s.payAdd}>
                             <div className={s.payment}>
                                 <p>Способ оплаты</p>
                                 <select value={paymentMethod} defaultValue={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)}>
-                                    <option value="CARD">Карта</option>
-                                    <option value="CASH">Наличные</option>
+                                    <option value="CARD">По факту</option>
+                                    <option value="CASH">Авансовый</option>
                                 </select>
                             </div>
                             <button type='button' className={s.but} onClick={handleAddProduct}>Добавить товар</button>
