@@ -5,12 +5,17 @@ import Menu from '../../components/Menu';
 import ProductCard from '../../components/ProductCard';
 import NewProductCard from '../../components/NewProductCard';
 import ProductService from '../../services/ProductService';
+import Notification from '../../modalWindow/Notification';
 
 export default function ProductsPage() {
     const [isNewProductButtonActive, setNewProductButtonActive] = useState(false);
     const [isNewDeliveryButtonActive, setNewDeliveryButtonActive] = useState(false);
     const [products, setProducts] = useState([]);
     const [findValue, setFindValue] = useState("");
+    const [file, setFile] = useState(null);
+    const [isNotificationActive, setNotificationActive] = useState(false);
+    const [notificationText, setNotificationText] = useState(false);
+    const [title, setTitle] = useState(false);
 
     React.useEffect(() => {
         ProductService.getAll()
@@ -21,6 +26,21 @@ export default function ProductsPage() {
     (product.name.toLowerCase().includes(findValue) ||
         product.code.toString().toLowerCase().includes(findValue))
     );
+
+    const onSendFile = (e) => {
+        e.preventDefault();
+        const data = new FormData();
+        data.append('file', file);
+        ProductService.addProductAmountByFile(data)
+            .then(() => {
+                window.location.reload();
+            })
+            .catch(function (error) {
+                setNotificationText(error.response.data.message);
+                setNotificationActive(true);
+                setTitle("Ошибка")
+            });
+    }
 
     return (
         <div>
@@ -47,10 +67,11 @@ export default function ProductsPage() {
                                 <h2 className={s.label}>Новая поставка товаров</h2>
                                 <img onClick={() => setNewDeliveryButtonActive(false)} src=".\images\delete.png" alt="close" />
                             </div>
-                            <form className={s.fields}>
+                            <form className={s.fields} onSubmit={(e) => onSendFile(e)}>
                                 <div className={s.column}>
                                     <p>Загрузите файл</p>
                                     <input
+                                        onChange={(obj) => setFile(obj.target.files[0])}
                                         type='file'
                                         className={s.inp}
                                         required />
@@ -88,6 +109,11 @@ export default function ProductsPage() {
                                 product={product} />
                         ))}
                 </div>
+                {isNotificationActive &&
+                    <Notification
+                        title={title}
+                        text={notificationText}
+                        setActive={setNotificationActive} />}
             </div>
         </div>
     )

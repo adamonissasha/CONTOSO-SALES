@@ -21,6 +21,10 @@ class ProductService {
     addProductAmount(data) {
         return axios.put(url + "/products/amount", data);
     }
+
+    addProductAmountByFile(data) {
+        return axios.put(url + "/products/uploadExcel", data, { headers: { "Content-Type": "multipart/form-data" } });
+    }
 }
 
 const productService = new ProductService();

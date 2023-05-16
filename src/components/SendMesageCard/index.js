@@ -13,7 +13,6 @@ export default function SendMessageCard({ clientId, setActive, label }) {
         const data = new FormData();
         data.append('file', file);
         data.append('messageRequest', messageRequest);
-        console.log(messageRequest, file);
         if (clientId === 0) {
             ClientService.sendMessageToAll(data);
         } else {
